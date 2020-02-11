@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "firebase": "^7.8.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
   "scripts": {
-    "start" : "NODE_ENV=development webpack-dev-server",
-    "build" : "NODE_ENV=production webpack -p"
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack -p"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
