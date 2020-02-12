@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import fire from './config/fire';
-import { render } from 'react-dom';
-import { HotModuleReplacementPlugin } from 'webpack';
+import fire from './config/Fire';
 
-class Home extends Component{
-    constructor(props){
+class Home extends Component {
+    constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this);
     }
 
 
-    
+    logout() {
+        fire.auth().signOut();
+    }
 
-    render(){
+    render() {
         return (
-            <div className="col-md-6">
-            <h1>you are home</h1>
+            <div>
+                <h1>Welcome to Home</h1>
+                <button onClick={this.logout}>Logout</button>
             </div>
         );
+
     }
+
 }
+
 export default Home;
+
