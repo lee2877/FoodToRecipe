@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import fire from './config/Fire';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 
@@ -33,14 +34,22 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        {this.state.user ? (
-          <Home />
-        ) :
-          (
-            <Login />
-          )}
-      </div>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path="/">
+              <div>
+                {this.state.user ? (
+                  <Home />
+                ) :
+                  (
+                    <Login />
+                  )}
+              </div>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
