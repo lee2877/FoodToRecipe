@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import './Home.css';
 import fire from './config/Fire';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import NavbarBrand from 'react-bootstrap/NavbarBrand';
+import Container from 'react-bootstrap/Container'
 
 class Home extends Component {
     constructor(props) {
@@ -15,8 +21,13 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <h1>Welcome to Home</h1>
-                <button onClick={this.logout}>Logout</button>
+                <Navbar>
+                    <p className="title">Food2Recipe</p>
+                    <button type="button" class="btn-profile">Profile</button>
+                    <div className="logout">
+                        <button className="btn-logout" onClick={this.logout} >Logout</button>
+                    </div>
+                </Navbar>
             </div>
         );
 

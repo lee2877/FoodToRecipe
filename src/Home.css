@@ -1,0 +1,23 @@
+.title {
+  color: #A4DA28;
+  font-size: 40px;
+  margin: 5px;
+}
+
+.btn-profile {
+  background-color: white;
+}
+
+.logout{
+  justify-content: flex-end !important; 
+}
+
+.btn-logout{
+  background-color: #A4DA28;
+  border: none;
+  border-radius: 10%;
+  font-size: 20px;
+  margin: 5px;
+}
+
+
