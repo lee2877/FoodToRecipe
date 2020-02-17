@@ -18,17 +18,17 @@ class Home extends Component {
 
     render() {
         return (
-                <div>
-                    <Navbar>
-                        <p className="title">Food2Recipe</p>
-                        <Link to="/profile">
-                            <button type="button" class="btn-profile">Profile</button>
-                        </Link>
-                        <div className="logout">
-                            <button className="btn-logout" onClick={this.logout} >Logout</button>
-                        </div>
-                    </Navbar>
-{/* 
+            <div>
+                <Navbar>
+                    <p className="title">Food2Recipe</p>
+                    <Link to="/profile">
+                        <button type="button" class="btn-profile">Profile</button>
+                    </Link>
+                    <div className="logout">
+                        <button className="btn-logout" onClick={this.logout} >Logout</button>
+                    </div>
+                </Navbar>
+                {/* 
                     <Switch>
                         <Route exact path="/">
                             <Home />
@@ -37,7 +37,7 @@ class Home extends Component {
                             <Profile />
                         </Route>
                     </Switch> */}
-                </div>
+            </div>
         );
 
     }

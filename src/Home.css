@@ -5,7 +5,11 @@
 }
 
 .btn-profile {
-  background-color: white;
+  background-color: #92BF2C;
+  border: none;
+  border-radius: 10%;
+  font-size: 20px;
+  margin: 5px;
 }
 
 .logout{
