@@ -5,6 +5,7 @@ import fire from './config/Fire';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import Profile from './components/Profile';
 
 class App extends Component {
   constructor() {
@@ -35,9 +36,12 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div>
           <Switch>
-            <Route exact path="/">
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/">
               <div>
                 {this.state.user ? (
                   <Home />

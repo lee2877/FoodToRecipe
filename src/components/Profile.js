@@ -30,9 +30,10 @@ export default function Profile() {
           <p className="title">Food2Recipe</p>
           <button type="button" class="btn-profile">Profile</button>
           <div className="logout">
-            <button className="btn-logout" onClick={this.logout} >Logout</button>
+            <button className="btn-logout" /*onClick={this.logout}*/ >Logout</button>
           </div>
         </Navbar>
+        <p>Profile Page</p>
 
       </div>
     )

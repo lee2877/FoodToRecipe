@@ -18,7 +18,6 @@ class Home extends Component {
 
     render() {
         return (
-            <Router>
                 <div>
                     <Navbar>
                         <p className="title">Food2Recipe</p>
@@ -29,7 +28,7 @@ class Home extends Component {
                             <button className="btn-logout" onClick={this.logout} >Logout</button>
                         </div>
                     </Navbar>
-
+{/* 
                     <Switch>
                         <Route exact path="/">
                             <Home />
@@ -37,9 +36,8 @@ class Home extends Component {
                         <Route path="/profile">
                             <Profile />
                         </Route>
-                    </Switch>
+                    </Switch> */}
                 </div>
-            </Router>
         );
 
     }
