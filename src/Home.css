@@ -5,7 +5,7 @@
 }
 
 .btn-profile {
-  background-color: #92BF2C;
+  background-color: #A4DA28;
   border: none;
   border-radius: 10%;
   font-size: 20px;
@@ -13,7 +13,8 @@
 }
 
 .logout{
-  justify-content: flex-end !important; 
+  position: absolute;
+  right: 10px; 
 }
 
 .btn-logout{
