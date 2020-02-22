@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import fire from './config/Fire';
+import { validateAll } from 'indicate';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.signup = this.signup.bind(this);
     this.state = {
       email: '',
@@ -14,9 +15,33 @@ class Login extends Component {
     };
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  handleInputChange=(event) => {
+    this.setState({ [event.target.name]: event.target.value });
   }
+  handleSubmit=(event)=> {
+    event.preventDefault();
+    console.log(this.state);
+    const data = this.state;
+    const  rules = {
+      email: 'required|email' ,
+      password: 'required|string|min:6|confirmed'
+    }
+    const messages = {
+      required: ' This {{ field }} is required.',
+      'email.email': 'The email is invalid.'
+    }
+    validateAll(data, rules, messages )
+      .then(() => {
+        console.log('success')
+      })
+      .catch(errors => {
+        console.log(errors);
+        const formattedErrors = {}
+        errors.forEach( error => formattedErrors[error.field] = error.message )
+        this.setState({ errors: formattedErrors })
+      })
+  }
+  
 
   login(e) {
     e.preventDefault();
@@ -37,15 +62,15 @@ class Login extends Component {
   render() {
     return (
       <div className="col-md-6">
-        <form>
+        <form className="form-type-material" onSubmit={this.handleSubmit}>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input  value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="inputEmail">Email address</label>
+            <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+            
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input  value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <label for="inputPassword">Password</label>
+            <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
           </div>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
