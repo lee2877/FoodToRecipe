@@ -4,6 +4,7 @@ import fire from './config/Fire';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Profile from './components/Profile';
+import ForgotPW from './components/ForgotPW';
 
 class Home extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class Home extends Component {
                         <button className="btn-logout" onClick={this.logout} >Logout</button>
                     </div>
                 </Navbar>
+                <ForgotPW></ForgotPW>
                 {/* 
                     <Switch>
                         <Route exact path="/">
@@ -40,6 +42,7 @@ class Home extends Component {
                         </Route>
                     </Switch> */}
             </div>
+            
         );
 
     }
