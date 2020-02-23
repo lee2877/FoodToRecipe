@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
+import ForgotPW from './components/ForgotPW'
 import { validateAll } from 'indicate';
 
 class Login extends Component {
@@ -30,6 +31,7 @@ class Login extends Component {
       required: ' This {{ field }} is required.',
       'email.email': 'The email is invalid.'
     }
+    
     validateAll(data, rules, messages )
       .then(() => {
         console.log('success')
@@ -39,7 +41,7 @@ class Login extends Component {
         const formattedErrors = {}
         errors.forEach( error => formattedErrors[error.field] = error.message )
         this.setState({ errors: formattedErrors })
-      })
+      }) 
   }
   
 
@@ -59,8 +61,12 @@ class Login extends Component {
         console.log(error);
       })
   }
+  
+  
+
   render() {
     return (
+     <BrowserRouter>
       <div className="col-md-6">
         <form className="form-type-material" onSubmit={this.handleSubmit}>
           <div class="form-group">
@@ -75,8 +81,14 @@ class Login extends Component {
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
         </form>
-      
+        <a href="../ForgotPW">forgotPW?</a>
+        
       </div>
+      </BrowserRouter>
+      
+ 
+      
+      
     );
   }
 }

@@ -11,4 +11,18 @@ const config = { /* COPY THE ACTUAL CONFIG FROM FIREBASE CONSOLE */
     measurementId: "G-0FHSBYXNPR"
 };
 const fire = firebase.initializeApp(config);
+
+
+
+/* Taehoon Kim -> email reset sending method*/ 
+passwordReset: email=>{
+    return firebase.auth().sendPasswordResetEmail(email)
+            .then(function(user){
+                alert('Please check your email...')
+            }).catch(function (e){
+                console.log(e)
+            })       
+};
+
+
 export default fire;

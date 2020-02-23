@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
+import {Route} from 'react-router-dom';
+import fire from '../config/Fire';
 
 class ForgotPW extends Component {
+
+  
+
+   
     render(){
 
         return(
-            <article>
-
-                <h2>Forgot Passwords?</h2>
-                <form action ="/forgot_pw" method="findPW"
-                    onSubmit={function(e){
-                        e.preventDefault();
-                        this.props.onSubmit(
-                            e.target.email.value
-                        );
-                    }.bind(this)}
-                >
-                    <p>
-                        <input type="text" name="email" placeholder="Enter mail address"></input>
-                    </p>
-                    <p>
-                        <input type="submit"></input>
-                    </p>
-                        
-                </form>
-            </article>
+            <div>
+            <form action="/create_process" method="post"
+            onSubmit={function(e){
+                e.preventDefault();
+                this.props.onSubmit(
+                  e.target.title.value,
+                  
+                );
+                
+            }.bind(this)}
+          >
+            <p>
+              <input type="text" name="title" placeholder="Enter your Email"></input>
+            </p>
+            
+            <button type="submit" onClick={fire.p} class="btn btn-primary">Send Email</button>
+          </form>
+        
+            </div>
         );
     }
 }

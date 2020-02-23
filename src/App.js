@@ -8,6 +8,7 @@ import Login from './Login';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 
+
 class App extends Component {
   constructor() {
     super();
@@ -38,10 +39,12 @@ class App extends Component {
     return (
       <Router>
         <div>
+         
           <Switch>
-            <Route path="/profile">
+            <Route exact path="/profile">
               <Profile />
             </Route>
+            <Route exact path ="/ForgotPW" component={ForgotPW}> </Route>
             <Route path="/">
               <div>
                 {this.state.user ? (
@@ -49,9 +52,11 @@ class App extends Component {
                 ) :
                   (
                     <Login />
+                    
                   )}
               </div>
             </Route>
+            
           </Switch>
         </div>
       </Router>

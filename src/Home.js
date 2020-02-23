@@ -31,7 +31,7 @@ class Home extends Component {
                         <button className="btn-logout" onClick={this.logout} >Logout</button>
                     </div>
                 </Navbar>
-                <ForgotPW></ForgotPW>
+                
                 {/* 
                     <Switch>
                         <Route exact path="/">
