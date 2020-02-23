@@ -38,9 +38,9 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-         
+        <div>         
           <Switch>
+            
             <Route exact path="/profile">
               <Profile />
             </Route>
