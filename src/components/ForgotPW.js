@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import { browserHistory } from 'react-router';
 import fire from '../config/Fire';
 
 class ForgotPW extends Component {
@@ -8,10 +9,17 @@ class ForgotPW extends Component {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.pwMail=this.pwMail.bind(this);
+        this.handleGoBack=this.handleGoBack.bind(this);
         this.state={
             mail: ''
         };
     }
+
+
+    handleGoBack =()=>{
+        this.props.history.goBack();
+    }
+    
 
     handleInputChange=(e)=>{
         this.setState({ [e.target.name]:e.target.value })
@@ -25,7 +33,7 @@ class ForgotPW extends Component {
             console.log(errors);
             alert(errors);
         })
-        
+        this.handleGoBack();
     }
 
    
@@ -45,4 +53,4 @@ class ForgotPW extends Component {
     }
 }
 
-export default ForgotPW;
+export default withRouter(ForgotPW);
