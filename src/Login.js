@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
 import ForgotPW from './components/ForgotPW'
-import { validateAll } from 'indicative';
+
 
 class Login extends Component {
   constructor(props) {
@@ -32,16 +32,7 @@ class Login extends Component {
       'email.email': 'The email is invalid.'
     }
     
-    validateAll(data, rules, messages )
-      .then(() => {
-        console.log('success')
-      })
-      .catch(errors => {
-        console.log(errors);
-        const formattedErrors = {}
-        errors.forEach( error => formattedErrors[error.field] = error.message )
-        this.setState({ errors: formattedErrors })
-      }) 
+    
   }
   
 
