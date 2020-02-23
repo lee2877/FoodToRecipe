@@ -19,7 +19,12 @@ class ForgotPW extends Component {
 
     pwMail(e){
       
-        fire.auth().sendPasswordResetEmail(this.state.mail)
+        fire.auth().sendPasswordResetEmail(this.state.mail).then((u)=>{
+        }).then((u)=>{console.log(u)})
+        .catch((errors)=>{
+            console.log(errors);
+            alert(errors);
+        })
         
     }
 
@@ -33,7 +38,7 @@ class ForgotPW extends Component {
                                              type="mail" name="mail" placeholder="Enter your Email"></input>
             </p> 
 
-            <button type="submit" onClick={this.pwMail} class="btn btn-primary">Send Email Mother Fucker</button>
+            <button type="submit" onClick={this.pwMail} class="btn btn-primary">Send Request</button>
             
             </div>
         );
