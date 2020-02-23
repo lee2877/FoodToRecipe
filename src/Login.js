@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
 import ForgotPW from './components/ForgotPW'
-import { validateAll } from 'indicate';
+import { validateAll } from 'indicative';
 
 class Login extends Component {
   constructor(props) {
@@ -57,9 +57,10 @@ class Login extends Component {
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
     }).then((u)=>{console.log(u)})
-    .catch((error) => {
-        console.log(error);
-      })
+    .catch((errors) => {
+        console.log(errors); 
+        alert(errors);
+      })    
   }
   
   
@@ -71,7 +72,7 @@ class Login extends Component {
         <form className="form-type-material" onSubmit={this.handleSubmit}>
           <div class="form-group">
             <label for="inputEmail">Email address</label>
-            <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+            <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
             
           </div>
           <div class="form-group">
