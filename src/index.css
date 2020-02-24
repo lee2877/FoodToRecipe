@@ -9,3 +9,16 @@ button {
   border-radius: 10%;
   margin: 5px;
 }
+
+.navbar {
+  background-color: #F3F3F3;
+}
+
+.profile {
+  text-align: center;
+  background-color: #E3E3E3;
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 10px;
+  padding: 20px;
+}

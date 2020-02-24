@@ -26,7 +26,12 @@ class Profile extends Component {
                         <button className="btn-logout" /*onClick={this.logout}*/ >Logout</button>
                     </div>
                 </Navbar>
-                <p>Profile Page</p>
+                
+                <div className="profile">
+                    <p>Username: {this.state.username}</p>
+                    <p>Email: {this.state.email}</p>
+                    <p>Name: {this.state.name}</p>
+                </div>
 
             </div>
         );
