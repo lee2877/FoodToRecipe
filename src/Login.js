@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
+import firebase from 'firebase';
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import ForgotPW from './components/ForgotPW'
+
+
 
 
 class Login extends Component {
@@ -10,11 +14,14 @@ class Login extends Component {
     this.login = this.login.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.signup = this.signup.bind(this);
+    
     this.state = {
       email: '',
       password: ''
     };
   }
+  
+  
 
   handleInputChange=(event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -27,14 +34,40 @@ class Login extends Component {
       email: 'required|email' ,
       password: 'required|string|min:6|confirmed'
     }
-    const messages = {
-      required: ' This {{ field }} is required.',
-      'email.email': 'The email is invalid.'
-    }
     
     
   }
   
+  
+  signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    fire.auth().signInWithPopup(provider);
+
+  }
+  signInWithFacebook = () => {
+    const fbprovider = new firebase.auth.FacebookAuthProvider();
+    
+    fbprovider.setCustomParameters({
+      'display': 'popup'
+    });
+    fire.auth().signInWithPopup(fbprovider).then(function (result) {
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var fbuser = result.user;
+      
+    }).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
 
   login(e) {
     e.preventDefault();
@@ -52,6 +85,7 @@ class Login extends Component {
     }).then((u)=>{console.log(u)})
     .catch((errors) => {
         console.log(errors); 
+        
         alert(errors);
       })    
   }
@@ -59,6 +93,7 @@ class Login extends Component {
   
 
   render() {
+    
     return (
      <BrowserRouter>
       <div className="col-md-6">
@@ -72,6 +107,12 @@ class Login extends Component {
             <label for="inputPassword">Password</label>
             <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
           </div>
+            <button onClick={this.signInWithGoogle} class="googleBtn" type="button">
+              Google
+            </button>
+            <button onClick={this.signInWithFacebook} class="googleBtn" type="button">
+              Facebook
+            </button>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
         </form>
