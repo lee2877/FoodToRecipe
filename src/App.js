@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 
 
+
 class App extends Component {
   constructor() {
     super();
@@ -44,7 +45,10 @@ class App extends Component {
             <Route exact path="/profile">
               <Profile />
             </Route>
-            <Route exact path ="/ForgotPW" component={ForgotPW}> </Route>
+            <Route exact path ="/ForgotPW" component={ForgotPW}> 
+            </Route>
+            <Route exact path ="/Login">
+            </Route>
             <Route path="/">
               <div>
                 {this.state.user ? (

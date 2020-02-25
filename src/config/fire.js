@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 const config = { /* COPY THE ACTUAL CONFIG FROM FIREBASE CONSOLE */
     apiKey: "AIzaSyDKbAowC7BuIAguDRqSWnnitJo9GmX2pjI",
@@ -23,6 +25,16 @@ passwordReset: email=>{
                 console.log(e)
             })       
 };
+
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+export const provider = new firebase.auth.GoogleAuthProvider();
+
+provider.setCustomParameters({ prompt: 'select_account' });
+
+
 
 
 export default fire;
