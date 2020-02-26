@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
 import firebase from 'firebase';
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import ForgotPW from './components/ForgotPW'
 
 

@@ -5,10 +5,13 @@ import Modal from 'react-bootstrap/Modal'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import Food from './Food';
+import fire from '../config/Fire';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
+        var userId;
+        this.logout = this.logout.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.state = {
@@ -19,11 +22,24 @@ class Profile extends Component {
             name: 'test name',
             fav_rec: [1, 2, 3],
             fav_food: ['apple', 'orange', 'lemon']
-        }
+        };
+        var database = fire.database();
+    }
+
+    
+
+    logout() {
+        fire.auth().signOut();
     }
 
     componentDidMount(){
-        console.log(this.state)
+        var userId = fire.auth().currentUser.uid;
+        console.log("current uid is: ", userId)
+        return fire.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+            var username = (snapshot.val() && snapshot.val().name) || 'Anonymous';
+            console.log(username);
+          });
+        // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
 
     handleShow(){
@@ -46,7 +62,7 @@ class Profile extends Component {
                     </Link>
                     <button className="btn-profile">Profile</button>
                     <div className="logout">
-                        <button className="btn-logout" /*onClick={this.logout}*/ >Logout</button>
+                        <button className="btn-logout" onClick={this.logout} >Logout</button>
                     </div>
                 </Navbar>
                 
