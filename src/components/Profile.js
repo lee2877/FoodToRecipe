@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
 import Modal from 'react-bootstrap/Modal'
 import Navigation from '../components/Navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +6,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import Food from './Food';
 import fire from '../config/Fire';
 import Form from 'react-bootstrap/Form';
+import './Profile.css'
 // import {withAuth} from './withAuth';
 
 class Profile extends Component {
@@ -51,9 +50,9 @@ class Profile extends Component {
                 hideName: snapshot.val().hideName
             });
             // getName = snapshot.val().name;
-            console.log("Current User name is: " + getName)
+            console.log(this.state)
         });
-        console.log(this.state.name)
+        console.log(this.state)
         //   this.setState({name: getName})
         // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
@@ -116,7 +115,7 @@ class Profile extends Component {
                 </div> */}
 
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
-                    <Modal.Header className="modal-header">Edit Profile</Modal.Header>
+                    <Modal.Header className="header-title">Edit Profile</Modal.Header>
                     <Modal.Body>
                         <Form>
                             {/* Editing username */}
@@ -167,8 +166,8 @@ class Profile extends Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button onClick={this.handleClose}>Cancel</button>
-                        <button onClick={this.handleSubmit}>Save</button>
+                        <button className="cancel-btn" onClick={this.handleClose}>Cancel</button>
+                        <button className="save-btn" onClick={this.handleSubmit}>Save</button>
                     </Modal.Footer>
                 </Modal>
             </div>

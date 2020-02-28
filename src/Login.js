@@ -124,7 +124,7 @@ class Login extends Component {
               Facebook
             </button>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success login-btn">Signup</button>
         </form>
         <a href="../ForgotPW">forgotPW?</a>
         
