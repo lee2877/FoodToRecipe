@@ -81,7 +81,15 @@ class Login extends Component {
   signup(e){
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).then((u)=>{console.log(u)})
+      
+    }).then((u)=>{
+      //var userId = fire.auth().currentUser.uid;
+      //console.log(userId);
+      //fire.database().ref('users/' + userId).set({
+        //email: this.email,
+        //password: this.password
+      //})
+      console.log(u)})
     .catch((errors) => {
         console.log(errors); 
         
