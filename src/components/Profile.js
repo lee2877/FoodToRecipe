@@ -39,23 +39,29 @@ class Profile extends Component {
         fire.auth().signOut();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         var userId = this.props.user.uid;
         var getName;
         // this.setState({uid: userId});
         console.log("current uid is: ", this.props.user.uid)
-        fire.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-            // this.setState({name: snapshot.val().name})
-            getName = snapshot.val().name;
+        fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
+            this.setState({
+                name: snapshot.val().name,
+                email: snapshot.val().email,
+                username: snapshot.val().username,
+                hideEmail: snapshot.val().hideEmail,
+                hideName: snapshot.val().hideName
+            });
+            // getName = snapshot.val().name;
             console.log("Current User name is: " + getName)
-          });
-          console.log(getName)
+        });
+        console.log(this.state.name)
         //   this.setState({name: getName})
         // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
 
-    setName(name){
-        this.setState({name: name})
+    setName(name) {
+        this.setState({ name: name })
     }
 
     handleShow() {
@@ -82,7 +88,7 @@ class Profile extends Component {
         return (
             <div>
                 {/*Navbar at the top of all screens to navigate between pages */}
-                <Navigation/>
+                <Navigation />
 
                 <div className="profile">
                     <div className="edit">
@@ -95,7 +101,7 @@ class Profile extends Component {
                     <p>Email: {this.state.email}</p>
                     <p>Name: {this.state.name}</p>
                 </div>
-{/* 
+                {/* 
                 <div className="favFood">
                     <p className="header-title">Favorite Foods</p>
                     <Food name="orange" />
