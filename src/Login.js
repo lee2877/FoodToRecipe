@@ -80,16 +80,19 @@ class Login extends Component {
 
   signup(e){
     e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-      
-    }).then((u)=>{
-      //var userId = fire.auth().currentUser.uid;
-      //console.log(userId);
-      //fire.database().ref('users/' + userId).set({
-        //email: this.email,
-        //password: this.password
-      //})
-      console.log(u)})
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then((u)=>{
+      console.log(u);
+      return fire.database().ref('users/'+u.user.uid).set({
+        username: '',
+        email: u.user.email,
+        name: '',
+        hideEmail: false,
+        hideName: false,
+        numFav_rec: 0,
+      }
+      );
+    })
     .catch((errors) => {
         console.log(errors); 
         

@@ -5,3 +5,7 @@
 logout{
   color: red;
 }
+
+.modal-header {
+  text-align: center;
+}

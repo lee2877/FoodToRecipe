@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
+import Navigation from './components/Navigation';
 
 class Home extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Navbar>
+                {/* <Navbar>
                     <Link to="/">
                         <p className="title">Food2Recipe</p>
                     </Link>
@@ -30,7 +31,8 @@ class Home extends Component {
                     <div className="logout">
                         <button className="btn-logout" onClick={this.logout} >Logout</button>
                     </div>
-                </Navbar>
+                </Navbar> */}
+                <Navigation/>
                 
                 {/* 
                     <Switch>

@@ -39,15 +39,23 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>         
+        <div>
           <Switch>
-            
+
             <Route exact path="/profile">
-              <Profile />
+              <div>
+                {this.state.user ? (
+                  <Profile user={this.state.user} />
+                ) :
+                  (
+                    <Login />
+
+                  )}
+              </div>
             </Route>
-            <Route exact path ="/ForgotPW" component={ForgotPW}> 
+            <Route exact path="/ForgotPW" component={ForgotPW}>
             </Route>
-            <Route exact path ="/Login">
+            <Route exact path="/Login">
             </Route>
             <Route path="/">
               <div>
@@ -56,11 +64,11 @@ class App extends Component {
                 ) :
                   (
                     <Login />
-                    
+
                   )}
               </div>
             </Route>
-            
+
           </Switch>
         </div>
       </Router>
