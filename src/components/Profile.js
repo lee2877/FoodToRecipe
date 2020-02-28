@@ -2,53 +2,93 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Modal from 'react-bootstrap/Modal'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCog} from '@fortawesome/free-solid-svg-icons';
+import Navigation from '../components/Navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import Food from './Food';
 import fire from '../config/Fire';
+import Form from 'react-bootstrap/Form';
+// import {withAuth} from './withAuth';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        var userId;
         this.logout = this.logout.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
+        this.toggleHide = this.toggleHide.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            showModal: false,
-            uid: '123',
-            username: 'test',
-            email: 'test@fake.com',
-            name: 'test name',
+            username: '',
+            email: '',
+            name: '',
+            hideName: false,
+            hideEmail: false,
             fav_rec: [1, 2, 3],
-            fav_food: ['apple', 'orange', 'lemon']
+            fav_food: ['apple', 'orange', 'lemon'],
+            showModal: false,
         };
-        var database = fire.database();
     }
 
-    
+
 
     logout() {
         fire.auth().signOut();
     }
 
-    componentDidMount(){
-        var userId = fire.auth().currentUser.uid;
-        console.log("current uid is: ", userId)
-        return fire.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-            var username = (snapshot.val() && snapshot.val().name) || 'Anonymous';
-            console.log(username);
-          });
+    componentDidMount() {
+        var userId = this.props.user.uid;
+        var getName;
+        // this.setState({uid: userId});
+        console.log("current uid is: ", this.props.user.uid)
+        fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
+            this.setState({
+                name: snapshot.val().name,
+                email: snapshot.val().email,
+                username: snapshot.val().username,
+                hideEmail: snapshot.val().hideEmail,
+                hideName: snapshot.val().hideName
+            });
+            // getName = snapshot.val().name;
+            console.log("Current User name is: " + getName)
+        });
+        console.log(this.state.name)
+        //   this.setState({name: getName})
         // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
 
-    handleShow(){
-        this.setState({showModal: true});
-        console.log(this.state.showModal);
+    setName(name) {
+        this.setState({ name: name })
     }
 
+    handleShow() {
+        this.setState({ showModal: true });
+    }
     handleClose() {
-        this.setState({showModal: false});
+        this.setState({ showModal: false });
+    }
+
+    handleSubmit(event) {
+        fire.database().ref('/users/' + this.props.user.uid)
+            .set({
+                username: this.state.username,
+                email: this.state.email,
+                name: this.state.name,
+                hideName: this.state.hideName,
+                hideEmail: this.state.hideEmail,
+            });
+        this.handleClose();
+
+        event.preventDefault();
+    }
+
+    handleTextChange(event) {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+    toggleHide(event) {
+        this.setState({ [event.target.id]: event.target.checked });
     }
 
 
@@ -56,38 +96,87 @@ class Profile extends Component {
         return (
             <div>
                 {/*Navbar at the top of all screens to navigate between pages */}
-                <Navbar>
-                    <Link to="/">
-                        <p className="title">Food2Recipe</p>
-                    </Link>
-                    <button className="btn-profile">Profile</button>
-                    <div className="logout">
-                        <button className="btn-logout" onClick={this.logout} >Logout</button>
-                    </div>
-                </Navbar>
-                
+                <Navigation />
+
                 <div className="profile">
                     <div className="edit">
                         <button className="btn-edit" onClick={this.handleShow}>
-                            <FontAwesomeIcon icon={faCog}/>
+                            <FontAwesomeIcon icon={faCog} />
                         </button>
                     </div>
+                    <p className="header-title">Profile Page</p>
                     <p>Username: {this.state.username}</p>
                     <p>Email: {this.state.email}</p>
                     <p>Name: {this.state.name}</p>
                 </div>
+                {/* 
+                <div className="favFood">
+                    <p className="header-title">Favorite Foods</p>
+                    <Food name="orange" />
+                </div> */}
 
-                <div className="favFood"> 
-                    <p className="favFoodTitle">Favorite Foods</p>
-                    <Food name="orange"/>
-                </div>
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header className="modal-header">Edit Profile</Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            {/* Editing username */}
+                            <Form.Group controlId="formUsername">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control
+                                    name="username"
+                                    value={this.state.username}
+                                    onChange={this.handleTextChange}
+                                    placeholder="Enter your username here"
+                                />
+                            </Form.Group>
 
-                <Modal show={this.showModal} onHide={this.handleClose} fade={false}>
-                    <Modal.Header>Edit Profile</Modal.Header>
+                            {/* Editing email */}
+                            <Form.Group controlId="formEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    name="email"
+                                    value={this.state.email}
+                                    onChange={this.handleTextChange}
+                                    placeholder="Enter your email here"
+                                />
+                                <Form.Check
+                                    type="switch"
+                                    checked={this.state.hideEmail}
+                                    label="Hide Email"
+                                    id="hideEmail"
+                                    onChange={this.toggleHide}
+                                />
+                            </Form.Group>
+                            {/* Editing name */}
+                            <Form.Group controlId="formName">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
+                                    name="name"
+                                    value={this.state.name}
+                                    onChange={this.handleTextChange}
+                                    placeholder="Enter your name here"
+                                />
+                                <Form.Check
+                                    type="switch"
+                                    checked={this.state.hideName}
+                                    label="Hide Name"
+                                    id="hideName"
+                                    onChange={this.toggleHide}
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button onClick={this.handleClose}>Cancel</button>
+                        <button onClick={this.handleSubmit}>Save</button>
+                    </Modal.Footer>
                 </Modal>
             </div>
         );
     }
 }
-
 export default Profile;
+
+// const condition = user => !!user;
+
+// export default withAuth(condition)(Profile);
