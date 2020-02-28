@@ -18,15 +18,13 @@ class Profile extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.toggleHide = this.toggleHide.bind(this);
-        this.setName = this.setName.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            // uid: fire.auth().currentUser.uid,
-            username: 'test',
-            email: 'test@fake.com',
-            name: 'test Name',
+            username: '',
+            email: '',
+            name: '',
             hideName: false,
             hideEmail: false,
-            // name: fire.database().ref('/users/'+this.state.uid).once('value').then(function(snapshot){}),
             fav_rec: [1, 2, 3],
             fav_food: ['apple', 'orange', 'lemon'],
             showModal: false,
@@ -72,6 +70,16 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
+        fire.database().ref('/users/' + this.props.user.uid)
+            .set({
+                username: this.state.username,
+                email: this.state.email,
+                name: this.state.name,
+                hideName: this.state.hideName,
+                hideEmail: this.state.hideEmail,
+            });
+        this.handleClose();
+
         event.preventDefault();
     }
 
@@ -150,7 +158,6 @@ class Profile extends Component {
                                 />
                                 <Form.Check
                                     type="switch"
-                                    value={this.state.hideName}
                                     checked={this.state.hideName}
                                     label="Hide Name"
                                     id="hideName"
@@ -160,7 +167,8 @@ class Profile extends Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-
+                        <button onClick={this.handleClose}>Cancel</button>
+                        <button onClick={this.handleSubmit}>Save</button>
                     </Modal.Footer>
                 </Modal>
             </div>
