@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Modal from 'react-bootstrap/Modal'
+import Navigation from '../components/Navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import Food from './Food';
 import fire from '../config/Fire';
 import Form from 'react-bootstrap/Form';
+// import {withAuth} from './withAuth';
 
 class Profile extends Component {
     constructor(props) {
@@ -16,17 +18,18 @@ class Profile extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.toggleHide = this.toggleHide.bind(this);
+        this.setName = this.setName.bind(this);
         this.state = {
             // uid: fire.auth().currentUser.uid,
             username: 'test',
             email: 'test@fake.com',
-            name: '',
+            name: 'test Name',
+            hideName: false,
+            hideEmail: false,
             // name: fire.database().ref('/users/'+this.state.uid).once('value').then(function(snapshot){}),
             fav_rec: [1, 2, 3],
             fav_food: ['apple', 'orange', 'lemon'],
             showModal: false,
-            hideName: false,
-            hideEmail: false,
         };
     }
 
@@ -36,24 +39,29 @@ class Profile extends Component {
         fire.auth().signOut();
     }
 
-    // componentDidMount(){
-    //     var userId = fire.auth().currentUser.uid;
-    //     // this.setState({uid: userId});
-    //     console.log("current uid is: ", this.state.uid)
-    //     var getName = fire.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-    //         getName = snapshot.val().name;
-    //         console.log("Current User name is: " + getName)
-    //       });
-    //     //   this.setState({name: getName})
-    //     // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
-    // }
+    componentDidMount(){
+        var userId = this.props.user.uid;
+        var getName;
+        // this.setState({uid: userId});
+        console.log("current uid is: ", this.props.user.uid)
+        fire.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+            // this.setState({name: snapshot.val().name})
+            getName = snapshot.val().name;
+            console.log("Current User name is: " + getName)
+          });
+          console.log(getName)
+        //   this.setState({name: getName})
+        // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
+    }
+
+    setName(name){
+        this.setState({name: name})
+    }
 
     handleShow() {
         this.setState({ showModal: true });
     }
-
     handleClose() {
-        
         this.setState({ showModal: false });
     }
 
@@ -74,15 +82,7 @@ class Profile extends Component {
         return (
             <div>
                 {/*Navbar at the top of all screens to navigate between pages */}
-                <Navbar>
-                    <Link to="/">
-                        <p className="title">Food2Recipe</p>
-                    </Link>
-                    <button className="btn-profile">Profile</button>
-                    <div className="logout">
-                        <button className="btn-logout" onClick={this.logout} >Logout</button>
-                    </div>
-                </Navbar>
+                <Navigation/>
 
                 <div className="profile">
                     <div className="edit">
@@ -95,11 +95,11 @@ class Profile extends Component {
                     <p>Email: {this.state.email}</p>
                     <p>Name: {this.state.name}</p>
                 </div>
-
+{/* 
                 <div className="favFood">
                     <p className="header-title">Favorite Foods</p>
                     <Food name="orange" />
-                </div>
+                </div> */}
 
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header className="modal-header">Edit Profile</Modal.Header>
@@ -161,5 +161,8 @@ class Profile extends Component {
         );
     }
 }
-
 export default Profile;
+
+// const condition = user => !!user;
+
+// export default withAuth(condition)(Profile);
