@@ -103,10 +103,22 @@ class Profile extends Component {
                             <FontAwesomeIcon icon={faCog} />
                         </button>
                     </div>
-                    <p className="header-title">Profile Page</p>
-                    <p>Username: {this.state.username}</p>
-                    <p>Email: {this.state.email}</p>
-                    <p>Name: {this.state.name}</p>
+                    <div className="header-title">Profile Page</div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Username: </div>
+                        <div className="profile-content">{this.state.username}</div>
+                    </div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Email: </div>
+                        <div className="profile-content">{this.state.email}</div>
+                    </div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Name: </div>
+                        <div className="profile-content">{this.state.name}</div>
+                    </div>
                 </div>
                 {/* 
                 <div className="favFood">
