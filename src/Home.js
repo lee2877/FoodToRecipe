@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 import Navigation from './components/Navigation';
+import Recipe from './components/Recipe';
 
 class Home extends Component {
     constructor(props) {
@@ -21,30 +22,10 @@ class Home extends Component {
     render() {
         return (
             <div>
-                {/* <Navbar>
-                    <Link to="/">
-                        <p className="title">Food2Recipe</p>
-                    </Link>
-                    <Link to="/profile">
-                        <button className={"btn","btn-profile"}>Profile</button>
-                    </Link>
-                    <div className="logout">
-                        <button className="btn-logout" onClick={this.logout} >Logout</button>
-                    </div>
-                </Navbar> */}
-                <Navigation/>
-                
-                {/* 
-                    <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route path="/profile">
-                            <Profile />
-                        </Route>
-                    </Switch> */}
+                <Navigation />
+                <Recipe title="Chicken Parm" calories="250"/>
             </div>
-            
+
         );
 
     }
