@@ -7,9 +7,9 @@ class Recipe extends Component {
 
   render(){
     return(
-      <div>
-        <p>{this.props.title}</p>
-        <p>{this.props.calories}</p>
+      <div className="recipe">
+        <p className="recipe-title">{this.props.title}</p>
+        <img className="recipe-img" src={this.props.img}/>
       </div>
     )
   }

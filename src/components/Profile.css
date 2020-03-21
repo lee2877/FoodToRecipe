@@ -38,3 +38,17 @@
 .modal-header {
   text-align: center;
 }
+
+.recipe {
+  margin: 15px;
+  padding: 10px;
+}
+
+.recipe-title {
+  font-size: 26px;
+}
+
+.recipe-img {
+  max-width: 250px;
+  max-height: 200px;
+}

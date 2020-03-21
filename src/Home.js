@@ -12,6 +12,24 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        this.getRecipes = this.getRecipes.bind(this);
+
+        this.state = {
+
+        }
+    }
+
+    getRecipes(){
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        fetch("https://api.edamam.com/search/app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e&q=chicken")
+        .then((data) => data.json())
+        .then((response) => {
+            console.log(response);
+        })
+    }
+
+    componentDidMount(){
+        this.getRecipes();
     }
 
 
@@ -23,7 +41,7 @@ class Home extends Component {
         return (
             <div>
                 <Navigation />
-                <Recipe title="Chicken Parm" calories="250"/>
+                <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg"/>
             </div>
 
         );
