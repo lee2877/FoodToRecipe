@@ -1,28 +1,32 @@
-.title {
-  color: #A4DA28;
-  font-size: 40px;
-  margin: 5px;
+.recipe-list {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.btn-profile {
-  background-color: #A4DA28;
-  border: none;
-  border-radius: 10%;
-  font-size: 20px;
-  margin: 5px;
+.recipe {
+  margin: 15px;
+  padding: 10px;
+  /*borders */
+  /* border-style: solid;
+  border-color: #A6A6A6; */
+  background-color: #EBEBEB;
+  border-radius: 20px;
+  border-width: 1.25px;
+  text-align: center;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 2px 10px grey;
 }
 
-.logout{
-  position: absolute;
-  right: 10px; 
+.recipe-title {
+  font-size: 18px;
 }
 
-.btn-logout{
-  background-color: #A4DA28;
-  border: none;
-  border-radius: 10%;
-  font-size: 20px;
-  margin: 5px;
+.recipe-img {
+  border-radius: 10px;
+  max-width: 90%;
+  box-shadow: 0px 4px 10px grey;
 }
-
 

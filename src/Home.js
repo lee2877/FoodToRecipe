@@ -15,17 +15,30 @@ class Home extends Component {
         this.getRecipes = this.getRecipes.bind(this);
 
         this.state = {
-
+            recipes: [],
+            foods: ["chicken","potato","green beans"]
         }
     }
 
     getRecipes() {
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        fetch("https://api.edamam.com/search/app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e&q=chicken")
-            .then((data) => data.json())
-            .then((response) => {
-                console.log(response);
-            })
+        const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
+        let req = apiurl + "&q=" + this.state.foods.toString();
+        console.log(req);
+        setTimeout(() => {
+            fetch(req)
+                .then(results => {
+                    return results.json();
+                }).then((data) => {
+                    let recipes = data.hits.map((hit) => {
+                        return (
+                            <div key={hit.recipe.label}>
+                                <Recipe title={hit.recipe.label} img={hit.recipe.image} />
+                            </div>
+                        )
+                    })
+                    this.setState({recipes: recipes});
+                })
+        })
     }
 
     componentDidMount() {
@@ -42,11 +55,12 @@ class Home extends Component {
             <div>
                 <Navigation />
                 <div className="recipe-list">
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
+                    {/* <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
                     <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg" />
                     <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
+                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" /> */}
 
+                    {this.state.recipes}
                 </div>
             </div>
 
