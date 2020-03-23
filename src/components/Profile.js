@@ -40,7 +40,6 @@ class Profile extends Component {
         var userId = this.props.user.uid;
         var getName;
         // this.setState({uid: userId});
-        console.log("current uid is: ", this.props.user.uid)
         fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
             this.setState({
                 name: snapshot.val().name,
@@ -50,9 +49,7 @@ class Profile extends Component {
                 hideName: snapshot.val().hideName
             });
             // getName = snapshot.val().name;
-            console.log(this.state)
         });
-        console.log(this.state)
         //   this.setState({name: getName})
         // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
