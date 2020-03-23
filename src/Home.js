@@ -19,16 +19,16 @@ class Home extends Component {
         }
     }
 
-    getRecipes(){
+    getRecipes() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         fetch("https://api.edamam.com/search/app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e&q=chicken")
-        .then((data) => data.json())
-        .then((response) => {
-            console.log(response);
-        })
+            .then((data) => data.json())
+            .then((response) => {
+                console.log(response);
+            })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getRecipes();
     }
 
@@ -41,7 +41,13 @@ class Home extends Component {
         return (
             <div>
                 <Navigation />
-                <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg"/>
+                <div className="recipe-list">
+                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
+                    <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg" />
+                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
+                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
+
+                </div>
             </div>
 
         );

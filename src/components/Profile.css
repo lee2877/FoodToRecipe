@@ -42,13 +42,21 @@
 .recipe {
   margin: 15px;
   padding: 10px;
+  /*borders */
+  border-style: solid;
+  border-color: #A6A6A6;
+  border-radius: 20px;
+  border-width: 1.25px;
+  text-align: center;
+  width: 300px;
+  height: 250px
 }
 
 .recipe-title {
-  font-size: 26px;
+  font-size: 24px;
 }
 
 .recipe-img {
-  max-width: 250px;
-  max-height: 200px;
+  max-width: 90%;
+  flex-direction: row;
 }
