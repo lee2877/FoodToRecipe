@@ -20,7 +20,7 @@ class Navigation extends Component {
             <p className="title">Food2Recipe</p>
           </Link>
           <Link to="/profile">
-            <button className={"btn", "btn-profile"}>Profile</button>
+            <button className="btn-profile">Profile</button>
           </Link>
           <div className="logout">
             <button className="btn-logout" onClick={this.logout} >Logout</button>
