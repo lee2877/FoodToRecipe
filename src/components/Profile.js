@@ -40,7 +40,6 @@ class Profile extends Component {
         var userId = this.props.user.uid;
         var getName;
         // this.setState({uid: userId});
-        console.log("current uid is: ", this.props.user.uid)
         fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
             this.setState({
                 name: snapshot.val().name,
@@ -50,9 +49,7 @@ class Profile extends Component {
                 hideName: snapshot.val().hideName
             });
             // getName = snapshot.val().name;
-            console.log(this.state)
         });
-        console.log(this.state)
         //   this.setState({name: getName})
         // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
     }
@@ -103,10 +100,22 @@ class Profile extends Component {
                             <FontAwesomeIcon icon={faCog} />
                         </button>
                     </div>
-                    <p className="header-title">Profile Page</p>
-                    <p>Username: {this.state.username}</p>
-                    <p>Email: {this.state.email}</p>
-                    <p>Name: {this.state.name}</p>
+                    <div className="header-title">Profile Page</div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Username: </div>
+                        <div className="profile-content">{this.state.username}</div>
+                    </div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Email: </div>
+                        <div className="profile-content">{this.state.email}</div>
+                    </div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Name: </div>
+                        <div className="profile-content">{this.state.name}</div>
+                    </div>
                 </div>
                 {/* 
                 <div className="favFood">

@@ -3,11 +3,28 @@
 }
 
 .profile {
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E3E3E3;
   text-align: center;
-  background-color: #E3E3E3;
   max-width: 600px;
   margin: auto;
   padding: 20px;
+}
+
+.flex {
+  display: flex;
+  position: relative;
+}
+
+.profile-label {
+  left: 0;
+}
+
+.profile-content {
+  position: absolute;
+  left: 200px;
 }
 
 .edit {
@@ -37,4 +54,9 @@
 
 .modal-header {
   text-align: center;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
 }

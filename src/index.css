@@ -11,10 +11,39 @@ button {
 }
 
 .navbar {
-  background-color: #F3F3F3;
+  margin-bottom: 40px;
+  background-color: #A4DA28;
+  box-shadow: 0 6px 10px grey;
 }
 
-.header-title {
-  font-size: 20px;
+.title {
+  color: #5D791B;
+  font-size: 40px;
   font-weight: bold;
+  margin: 5px;
 }
+
+.btn-profile {
+  margin: 10px;
+  background-color: #E3E3E3;
+  border: none;
+  border-radius: 10%;
+  font-size: 20px;
+  box-shadow: 0 2px 5px grey;
+}
+
+.logout{
+  position: absolute;
+  right: 10px; 
+}
+
+.btn-logout{
+  background-color: #A4DA28;
+  border: none;
+  border-radius: 10%;
+  font-size: 20px;
+  margin: 5px;
+}
+
+
+
