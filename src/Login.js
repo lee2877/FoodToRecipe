@@ -84,9 +84,9 @@ class Login extends Component {
     .then((u)=>{
       console.log(u);
       return fire.database().ref('users/'+u.user.uid).set({
-        username: '',
+        username: u.user.email,
         email: u.user.email,
-        name: '',
+        name: u.user.email,
         hideEmail: false,
         hideName: false,
         numFav_rec: 0,
