@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import fire from './config/Fire';
+import firebase from 'firebase';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,7 +9,6 @@ import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 import Navigation from './components/Navigation';
 import Recipe from './components/Recipe';
-import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import { MultiSelect } from '@progress/kendo-react-dropdowns';
 import ingredients from './ingredients.js';
 
@@ -17,24 +17,42 @@ class Home extends Component {
         super(props);
         this.logout = this.logout.bind(this);
         this.getRecipes = this.getRecipes.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             recipes: [],
-            foods: ["egg","chicken","milk"]
-            
-        }
-        this.handleChange = this.handleChange.bind(this);
+            foods: [] 
+        }  
         
     }
     
 
     handleChange = (event) => {
+        
         this.setState({
-            foods : [event.target.value]
+            foods : (event.target.value) 
+        }, () =>
+        this.getRecipes()
+        
+        )
+    }
+    /* Need to fix with calling the user uid + changing the user info with favorite ingredients.
+    handleFavoriteChange = () => {
+        fire.database().ref('user/'+this.props.user.uid).set({
+            numFav_rec: 2,
+        }).then(() => {console.log("aa")})
+        .catch((errors) => {
+            console.log(errors);
+            
+        })
+
+    }
+    */
+    clear = () => {
+
+        this.setState({
+           foods: [], 
         });
-        // have to push value inside the foods
-        console.log(event.target.value);
-        console.log(this.state.foods);
+
     }
 
     itemRender = (li, itemProps) => {
@@ -49,6 +67,7 @@ class Home extends Component {
 
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
+        console.log(this.state.foods);
         let req = apiurl + "&q=" + this.state.foods.toString();
         console.log(req);
         setTimeout(() => {
@@ -66,9 +85,12 @@ class Home extends Component {
                     this.setState({recipes: recipes});
                 })
         })
+        
+        
     }
 
     componentDidMount() {
+        
         this.getRecipes();
     }
 
@@ -90,9 +112,12 @@ class Home extends Component {
                     autoClose={true}
                     value={value}
                     onChange={this.handleChange}
-                    
-                    
                 />
+            
+                <button onclick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
+                    add to favorite
+                </button>
+                
                 
                 <div className="recipe-list">
                     {/* <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />

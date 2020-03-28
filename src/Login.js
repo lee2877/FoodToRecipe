@@ -89,7 +89,9 @@ class Login extends Component {
         name: u.user.email,
         hideEmail: false,
         hideName: false,
+        FavFood: [],
         numFav_rec: 0,
+        
       }
       );
     })
@@ -120,7 +122,7 @@ class Login extends Component {
             <button onClick={this.signInWithGoogle} class="googleBtn" type="button">
               Google
             </button>
-            <button onClick={this.signInWithFacebook} class="googleBtn" type="button">
+            <button onClick={this.signInWithFacebook} class="facebookBtn" type="button">
               Facebook
             </button>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
