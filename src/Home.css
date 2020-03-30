@@ -1,5 +1,10 @@
+.home {
+  margin: 20px
+  
+}
+
 .recipe-list {
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

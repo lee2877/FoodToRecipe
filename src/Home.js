@@ -20,19 +20,18 @@ class Home extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             recipes: [],
-            foods: [] 
-        }  
-        
+            foods: []
+        }
+
     }
-    
+
 
     handleChange = (event) => {
-        
+
         this.setState({
-            foods : (event.target.value) 
-        }, () =>
-        this.getRecipes()
-        
+            foods: (event.target.value)
+        }
+
         )
     }
     /* Need to fix with calling the user uid + changing the user info with favorite ingredients.
@@ -50,7 +49,7 @@ class Home extends Component {
     clear = () => {
 
         this.setState({
-           foods: [], 
+            foods: [],
         });
 
     }
@@ -66,10 +65,9 @@ class Home extends Component {
     }
 
     getRecipes() {
+        console.log("getRecipes was called");
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
-        console.log(this.state.foods);
         let req = apiurl + "&q=" + this.state.foods.toString();
-        console.log(req);
         setTimeout(() => {
             fetch(req)
                 .then(results => {
@@ -82,16 +80,14 @@ class Home extends Component {
                             </div>
                         )
                     })
-                    this.setState({recipes: recipes});
+                    this.setState({ recipes: recipes });
                 })
         })
-        
-        
+
+
     }
 
     componentDidMount() {
-        
-        this.getRecipes();
     }
 
 
@@ -105,29 +101,27 @@ class Home extends Component {
         return (
             <div>
                 <Navigation />
-                <p>Select ingredients:</p>
-                <MultiSelect
-                    data={ingredients}
-                    itemRender={this.itemRender}
-                    autoClose={true}
-                    value={value}
-                    onChange={this.handleChange}
-                />
-            
-                <button onclick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
-                    add to favorite
-                </button>
-                
-                
-                <div className="recipe-list">
-                    {/* <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
-                    <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg" />
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" /> */}
 
-                    {this.state.recipes}
+                <div className="home">
+                    <p>Select ingredients:</p>
+                    <MultiSelect
+                        data={ingredients}
+                        itemRender={this.itemRender}
+                        autoClose={true}
+                        value={value}
+                        onChange={this.handleChange}
+                    />
+
+                    <button onClick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
+                        add to favorite
+                    </button>
+                    <button onClick={ () => this.getRecipes()}>Submit</button>
+
+
+                    <div className="recipe-list">
+                        {this.state.recipes}
+                    </div>
                 </div>
-                
             </div>
 
         );
