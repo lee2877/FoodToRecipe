@@ -73,9 +73,22 @@ class Home extends Component {
     }
 
     render() {
+        const {foods} = this.state;
         return (
             <div>
                 <Navigation />
+                <button
+                    onClick={() => {
+                        this.setState({
+                            foods: [],
+                            optionSelected: []
+                        }, () =>
+                            this.getRecipes()
+                        );
+                    }}
+                >
+                    {"Clear"}
+                </button>
                 <p>Select ingredients:</p>
                 <MySelect
                     options={ingredients}
@@ -84,7 +97,6 @@ class Home extends Component {
                     hideSelectedOptions={false}
                     components={animatedComponents}
                     onChange={this.handleChange}
-                    allowSelectAll={true}
                     value={this.state.optionSelected}
                 />
                 
