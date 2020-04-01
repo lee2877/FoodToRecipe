@@ -9,61 +9,35 @@ import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 import Navigation from './components/Navigation';
 import Recipe from './components/Recipe';
-import { MultiSelect } from '@progress/kendo-react-dropdowns';
-import ingredients from './ingredients.js';
+import { ingredients } from './ingredients.js';
+import MySelect from "./MySelect.js";
+import makeAnimated from "react-select/animated";
 
+const animatedComponents = makeAnimated()
 class Home extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        
+    
         this.state = {
             recipes: [],
-            foods: [] 
-        }  
-        
+            foods: [],
+            fav_foods: []
+        }
     }
     
-
-    handleChange = (event) => {
+    handleChange = selected => {
         
         this.setState({
-            foods : (event.target.value) 
+            foods: selected
         }, () =>
-        this.getRecipes()
+        console.log(this.state.foods)
         
-        )
-    }
-    /* Need to fix with calling the user uid + changing the user info with favorite ingredients.
-    handleFavoriteChange = () => {
-        fire.database().ref('user/'+this.props.user.uid).set({
-            numFav_rec: 2,
-        }).then(() => {console.log("aa")})
-        .catch((errors) => {
-            console.log(errors);
-            
-        })
-
-    }
-    */
-    clear = () => {
-
-        this.setState({
-           foods: [], 
-        });
-
-    }
-
-    itemRender = (li, itemProps) => {
-        const itemChildren = (
-            <span>
-                <input type="checkbox" checked={itemProps.selected} onChange={() => { }} />
-                &nbsp;{li.props.children}
-            </span>
         );
-        return React.cloneElement(li, li.props, itemChildren);
-    }
+    };
 
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
@@ -100,23 +74,21 @@ class Home extends Component {
     }
 
     render() {
-        const value = this.state.value;
-        const selected = 0;
         return (
             <div>
                 <Navigation />
                 <p>Select ingredients:</p>
-                <MultiSelect
-                    data={ingredients}
-                    itemRender={this.itemRender}
-                    autoClose={true}
-                    value={value}
+                <MySelect
+                    options={ingredients}
+                    isMulti
+                    closeMenuOnSelect={false}
+                    hideSelectedOptions={false}
+                    components={animatedComponents}
                     onChange={this.handleChange}
+                    allowSelectAll={true}
+                    value={this.state.optionSelected}
                 />
-            
-                <button onclick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
-                    add to favorite
-                </button>
+                
                 
                 
                 <div className="recipe-list">
