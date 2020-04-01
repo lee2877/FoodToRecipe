@@ -30,14 +30,16 @@ class Home extends Component {
     }
     
     handleChange = selected => {
+        var i = 1;
+        var ingr = [];
         
         this.setState({
-            foods: selected
+            foods: selected.map(p => p.value)
         }, () =>
-        console.log(this.state.foods)
-        
+        this.getRecipes()
         );
     };
+    
 
     getRecipes() {
         console.log("getRecipes was called");
