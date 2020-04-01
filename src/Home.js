@@ -40,10 +40,9 @@ class Home extends Component {
     };
 
     getRecipes() {
+        console.log("getRecipes was called");
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
-        console.log(this.state.foods);
         let req = apiurl + "&q=" + this.state.foods.toString();
-        console.log(req);
         setTimeout(() => {
             fetch(req)
                 .then(results => {
@@ -56,16 +55,14 @@ class Home extends Component {
                             </div>
                         )
                     })
-                    this.setState({recipes: recipes});
+                    this.setState({ recipes: recipes });
                 })
         })
-        
-        
+
+
     }
 
     componentDidMount() {
-        
-        this.getRecipes();
     }
 
 
@@ -99,7 +96,6 @@ class Home extends Component {
 
                     {this.state.recipes}
                 </div>
-                
             </div>
 
         );
