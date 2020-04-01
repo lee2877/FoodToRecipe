@@ -34,7 +34,8 @@ class Home extends Component {
         var ingr = [];
         
         this.setState({
-            foods: selected.map(p => p.value)
+            foods: selected.map(p => p.value),
+            optionSelected: selected
         }, () =>
         this.getRecipes()
         );
