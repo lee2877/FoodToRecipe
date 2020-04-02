@@ -91,6 +91,7 @@ class Login extends Component {
         hideName: false,
         fav_food: ["first element"],
         numFav_rec: 0,
+        email_verified: false,
         
       }
       );
