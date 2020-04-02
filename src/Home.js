@@ -36,8 +36,7 @@ class Home extends Component {
         this.setState({
             foods: selected.map(p => p.value),
             optionSelected: selected
-        }, () =>
-        this.getRecipes()
+        }
         );
     };
     
@@ -89,6 +88,13 @@ class Home extends Component {
                     }}
                 >
                     {"Clear"}
+                </button>
+                <button
+                    onClick={() => {
+                        this.getRecipes()
+                    }}
+                >
+                    {"Cook"}
                 </button>
                 <p>Select ingredients:</p>
                 <MySelect
