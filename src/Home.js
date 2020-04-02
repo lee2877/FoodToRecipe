@@ -23,7 +23,10 @@ class Home extends Component {
         this.state = {
             recipes: [],
             foods: [],
-            fav_food: ["first element"]
+            likes: 0,
+            favRecipes: [],
+            favorited: false,
+            loading: false,
         }
     }
     
@@ -40,7 +43,6 @@ class Home extends Component {
     
 
     getRecipes() {
-        console.log("getRecipes was called");
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         let req = apiurl + "&q=" + this.state.foods.toString();
         setTimeout(() => {
@@ -51,24 +53,35 @@ class Home extends Component {
                     let recipes = data.hits.map((hit) => {
                         return (
                             <div key={hit.recipe.label}>
-                                <Recipe title={hit.recipe.label} img={hit.recipe.image} />
+                                <Recipe
+                                    recipe={hit.recipe.label}
+                                    uri={hit.recipe.uri}
+                                    img={hit.recipe.image}
+                                    favRecipes={this.state.favRecipes}
+                                />
                             </div>
                         )
                     })
                     this.setState({ recipes: recipes });
                 })
         })
-
-
     }
 
     componentDidMount() {
-        //fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
-        //    this.setState({
-        //        fav_food: snapshot.val().fav_food
-        //    });
-        //    // getName = snapshot.val().name;
-        //});
+        fire.database().ref('/users/' + fire.auth().currentUser.uid).child('fav_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function(childSnapshot) {
+                    var item = childSnapshot.val();
+
+                    returnArr.push(item);
+                });
+                this.setState({
+                    favRecipes: returnArr,
+                })
+                console.log(this.state.favRecipes)
+            }
+        });
     }
 
 
@@ -130,14 +143,9 @@ class Home extends Component {
                 
                 
                 
-                <div className="recipe-list">
-                    {/* <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
-                    <Recipe title="Chicken Parm" calories="250" img="https://cafedelites.com/wp-content/uploads/2018/04/Chicken-Parmigiana-IMAGE-2.jpg" />
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" />
-                    <Recipe title="Asparagus" img="https://hips.hearstapps.com/del.h-cdn.co/assets/18/09/1519653347-delish-roasted-asparagus-1.jpg?crop=0.865xw:0.865xh;0.0590xw,0.0755xh&resize=480:*" /> */}
-
-                    {this.state.recipes}
-                </div>
+                    <div className="recipe-list">
+                        {this.state.recipes}
+                    </div>
             </div>
 
         );
