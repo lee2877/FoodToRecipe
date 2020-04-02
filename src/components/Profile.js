@@ -73,6 +73,8 @@ class Profile extends Component {
                 name: this.state.name,
                 hideName: this.state.hideName,
                 hideEmail: this.state.hideEmail,
+                fav_food: this.state.fav_food,
+                
             });
         this.handleClose();
 

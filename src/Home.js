@@ -20,12 +20,10 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        
-    
         this.state = {
             recipes: [],
             foods: [],
-            fav_foods: []
+            fav_food: ["first element"]
         }
     }
     
@@ -65,6 +63,12 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        //fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
+        //    this.setState({
+        //        fav_food: snapshot.val().fav_food
+        //    });
+        //    // getName = snapshot.val().name;
+        //});
     }
 
 
@@ -96,6 +100,23 @@ class Home extends Component {
                 >
                     {"Cook"}
                 </button>
+                <button
+                    onClick={() => {
+                        this.setState({
+                            fav_food: this.state.foods
+                        })
+                        firebase.database().ref(`users/${firebase.auth().currentUser.uid}`)
+                        .update({
+                            fav_food: this.state.fav_food
+                        });
+
+                        
+                        
+                    }}
+                >
+                    {"Add favorite"}
+                </button>
+                
                 <p>Select ingredients:</p>
                 <MySelect
                     options={ingredients}

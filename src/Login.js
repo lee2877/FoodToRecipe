@@ -89,7 +89,7 @@ class Login extends Component {
         name: u.user.email,
         hideEmail: false,
         hideName: false,
-        FavFood: [],
+        fav_food: ["first element"],
         numFav_rec: 0,
         
       }
