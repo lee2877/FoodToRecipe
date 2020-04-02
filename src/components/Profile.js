@@ -7,6 +7,7 @@ import Food from './Food';
 import fire from '../config/Fire';
 import Form from 'react-bootstrap/Form';
 import './Profile.css'
+import Recipe from './Recipe';
 // import {withAuth} from './withAuth';
 
 class Profile extends Component {
@@ -24,8 +25,7 @@ class Profile extends Component {
             name: '',
             hideName: false,
             hideEmail: false,
-            fav_rec: [1, 2, 3],
-            fav_food: ['apple', 'orange', 'lemon'],
+            favRecipes: [],
             showModal: false,
         };
     }
@@ -37,8 +37,6 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        var userId = this.props.user.uid;
-        var getName;
         // this.setState({uid: userId});
         fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
             this.setState({
@@ -46,12 +44,12 @@ class Profile extends Component {
                 email: snapshot.val().email,
                 username: snapshot.val().username,
                 hideEmail: snapshot.val().hideEmail,
-                hideName: snapshot.val().hideName
+                hideName: snapshot.val().hideName,
+                favRecipes: snapshot.val().fav_rec,
             });
-            // getName = snapshot.val().name;
         });
-        //   this.setState({name: getName})
-        // console.log(fire.database().ref('/users/' + userId).once('value').then(funciton(snapshot)))
+
+
     }
 
     setName(name) {
@@ -117,11 +115,11 @@ class Profile extends Component {
                         <div className="profile-content">{this.state.name}</div>
                     </div>
                 </div>
-                {/* 
-                <div className="favFood">
-                    <p className="header-title">Favorite Foods</p>
-                    <Food name="orange" />
-                </div> */}
+
+                {/* Favorite Recipes        */}
+                <div className="favrec">
+                    
+                </div>
 
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
                     <Modal.Header className="header-title">Edit Profile</Modal.Header>
