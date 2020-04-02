@@ -20,7 +20,9 @@ class Home extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             recipes: [],
-            foods: []
+            foods: [],
+            likes: 0,
+            loading: false,
         }
 
     }
@@ -74,17 +76,36 @@ class Home extends Component {
                     return results.json();
                 }).then((data) => {
                     let recipes = data.hits.map((hit) => {
+                        fire.database().ref('/recipes/' + hit.recipe.label).on("value", snapshot => {
+                            if (snapshot.exists()){
+                                console.log("Recipe exists. Likes are:"+snapshot.val().likes)
+                                this.setState({
+                                    likes: snapshot.val().likes
+                                })
+                            }else{
+                                this.setState({
+                                    likes: 0
+                                })
+                                fire.database().ref('/recipes/' + hit.recipe.label).set({
+                                    title: hit.recipe.label,
+                                    likes: this.state.likes,
+                                    comments: [],
+                                })
+                            }
+                            this.setState({
+                                loading: false,
+                            })
+                        });
+                        console.log(this.state.likes);
                         return (
                             <div key={hit.recipe.label}>
-                                <Recipe title={hit.recipe.label} img={hit.recipe.image} />
+                                <Recipe title={hit.recipe.label} img={hit.recipe.image} likes={this.state.likes} />
                             </div>
                         )
                     })
                     this.setState({ recipes: recipes });
                 })
         })
-
-
     }
 
     componentDidMount() {
@@ -115,7 +136,7 @@ class Home extends Component {
                     <button onClick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
                         add to favorite
                     </button>
-                    <button onClick={ () => this.getRecipes()}>Submit</button>
+                    <button onClick={() => this.getRecipes()}>Submit</button>
 
 
                     <div className="recipe-list">
