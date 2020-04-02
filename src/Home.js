@@ -69,7 +69,6 @@ class Home extends Component {
     }
 
     getRecipes() {
-        console.log("getRecipes was called");
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         let req = apiurl + "&q=" + this.state.foods.toString();
         setTimeout(() => {
@@ -95,11 +94,18 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        fire.database().ref('/users/' + fire.auth().currentUser.uid.fav_rec).on('value', snapshot => {
+        fire.database().ref('/users/' + fire.auth().currentUser.uid).child('fav_rec').on('value', snapshot => {
             if (snapshot.exists()) {
-                this.setState({
-                    favRecipes: snapshot.val(),
+                var returnArr = [];
+                snapshot.forEach(function(childSnapshot) {
+                    var item = childSnapshot.val();
+
+                    returnArr.push(item);
                 });
+                this.setState({
+                    favRecipes: returnArr,
+                })
+                console.log(this.state.favRecipes)
             }
         });
     }

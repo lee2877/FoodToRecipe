@@ -14,6 +14,7 @@ class Recipe extends Component {
     this.handleLike = this.handleLike.bind(this);
 
     this.state = {
+      img: '',
       likes: 0,
       favorited: false,
     };
@@ -22,7 +23,6 @@ class Recipe extends Component {
   componentDidMount() {
     fire.database().ref('/recipes/' + this.props.recipe).on("value", snapshot => {
       if (snapshot.exists()) {
-        console.log("Recipe exists. Likes are:" + snapshot.val().likes)
         this.setState({
           likes: snapshot.val().likes
         })
@@ -38,7 +38,7 @@ class Recipe extends Component {
       }
     });
     for (var i = 0; i < this.props.favRecipes.length; i++) {
-      if (this.props.recipe == this.props.favRecipes[i].recipe) {
+      if (this.props.recipe == this.props.favRecipes[i].title) {
         this.setState({
           favorited: true,
         })
@@ -56,13 +56,12 @@ class Recipe extends Component {
     })
     var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/fav_rec/');
     if (!this.state.favorited) {
-      console.log("Adding recipe to fav list");
       fav_recRef.child(this.props.recipe).set({
         title: this.props.recipe,
+        uri: this.props.uri,
       })
     }
     else {
-      console.log("removing recipe from favlist")
       fav_recRef.child(this.props.recipe).remove();
     }
   }
@@ -81,11 +80,9 @@ class Recipe extends Component {
             <FontAwesomeIcon className="recipe-likes-icon" icon={this.props.liked ? SolidHeart : OutlineHeart} />
             <p className="recipe-likes-text">{this.state.likes} Likes</p>
           </div>
-          <div className="recipe-favorite">
-            <button onClick={() => this.handleFavorite()}>
-              <FontAwesomeIcon icon={this.state.favorited ? SolidStar : OutlineStar} />
-            </button>
-          </div>
+          <button className="recipe-favorite" onClick={() => this.handleFavorite()}>
+            <FontAwesomeIcon icon={this.state.favorited ? SolidStar : OutlineStar} />
+          </button>
         </div>
       </div>
     )

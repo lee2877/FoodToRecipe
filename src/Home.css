@@ -63,6 +63,9 @@
 .recipe-favorite {
   position: relative;
   bottom: 4px;
+  background: none;
+  outline: none;
+  border: none;
   color: #E8B94C;
   font-size: 28px;
 }
