@@ -27,11 +27,9 @@ class Profile extends Component {
             fav_rec: [1, 2, 3],
             fav_food: ['apple', 'orange', 'lemon'],
             showModal: false,
-            email_verified: false,
+            
         };
     }
-
-
 
     logout() {
         fire.auth().signOut();
@@ -48,7 +46,7 @@ class Profile extends Component {
                 username: snapshot.val().username,
                 hideEmail: snapshot.val().hideEmail,
                 hideName: snapshot.val().hideName,
-                email_verified: snapshot.val().email_verified
+                
             });
             // getName = snapshot.val().name;
         });
@@ -76,7 +74,7 @@ class Profile extends Component {
                 hideName: this.state.hideName,
                 hideEmail: this.state.hideEmail,
                 fav_food: this.state.fav_food,
-                email_verified: this.state.email_verified,
+                
             });
         this.handleClose();
 
@@ -93,16 +91,24 @@ class Profile extends Component {
 
     sendEmailVerify(event){
         var user = fire.auth().currentUser;
-        user.sendEmailVerification().then(function() {
-        // Email sent.
-        alert("Verification Sent!");
-        }).catch(function(error) {
-            // An error happened.
-        });
+        if(user.emailVerified===false){
+            
+            user.sendEmailVerification().then(function() {
+            // Email sent.
+            alert("Verification Sent!");
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }else{
+            alert("Already Verified!");
+        }
+
     }
 
 
     render() {
+        var user = fire.auth().currentUser;
+
         return (
             <div>
                 {/*Navbar at the top of all screens to navigate between pages */}
@@ -133,7 +139,7 @@ class Profile extends Component {
                     <hr />
                     <div className="flex">
                         <div className="profile-label">Verified: </div>
-                        <div className="profile-content">:{this.state.email_verified}</div>
+                        <div className="profile-content">{user.emailVerified}</div>
                         
                     </div>
                     <div>
