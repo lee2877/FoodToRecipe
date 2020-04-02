@@ -22,6 +22,8 @@ class Home extends Component {
             recipes: [],
             foods: [],
             likes: 0,
+            favRecipes: [],
+            favorited: false,
             loading: false,
         }
 
@@ -76,30 +78,14 @@ class Home extends Component {
                     return results.json();
                 }).then((data) => {
                     let recipes = data.hits.map((hit) => {
-                        fire.database().ref('/recipes/' + hit.recipe.label).on("value", snapshot => {
-                            if (snapshot.exists()){
-                                console.log("Recipe exists. Likes are:"+snapshot.val().likes)
-                                this.setState({
-                                    likes: snapshot.val().likes
-                                })
-                            }else{
-                                this.setState({
-                                    likes: 0
-                                })
-                                fire.database().ref('/recipes/' + hit.recipe.label).set({
-                                    title: hit.recipe.label,
-                                    likes: this.state.likes,
-                                    comments: [],
-                                })
-                            }
-                            this.setState({
-                                loading: false,
-                            })
-                        });
-                        console.log(this.state.likes);
                         return (
                             <div key={hit.recipe.label}>
-                                <Recipe title={hit.recipe.label} img={hit.recipe.image} likes={this.state.likes} />
+                                <Recipe
+                                    recipe={hit.recipe.label}
+                                    uri={hit.recipe.uri}
+                                    img={hit.recipe.image}
+                                    favRecipes={this.state.favRecipes}
+                                />
                             </div>
                         )
                     })
@@ -109,6 +95,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        fire.database().ref('/users/' + fire.auth().currentUser.uid.fav_rec).on('value', snapshot => {
+            if (snapshot.exists()) {
+                this.setState({
+                    favRecipes: snapshot.val(),
+                });
+            }
+        });
     }
 
 
