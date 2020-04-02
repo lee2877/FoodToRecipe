@@ -9,9 +9,11 @@ import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
 import Navigation from './components/Navigation';
 import Recipe from './components/Recipe';
-import { MultiSelect } from '@progress/kendo-react-dropdowns';
-import ingredients from './ingredients.js';
+import { ingredients } from './ingredients.js';
+import MySelect from "./MySelect.js";
+import makeAnimated from "react-select/animated";
 
+const animatedComponents = makeAnimated()
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -26,47 +28,19 @@ class Home extends Component {
             favorited: false,
             loading: false,
         }
-
     }
-
-
-    handleChange = (event) => {
-
+    
+    handleChange = selected => {
+        var i = 1;
+        var ingr = [];
+        
         this.setState({
-            foods: (event.target.value)
+            foods: selected.map(p => p.value),
+            optionSelected: selected
         }
-
-        )
-    }
-    /* Need to fix with calling the user uid + changing the user info with favorite ingredients.
-    handleFavoriteChange = () => {
-        fire.database().ref('user/'+this.props.user.uid).set({
-            numFav_rec: 2,
-        }).then(() => {console.log("aa")})
-        .catch((errors) => {
-            console.log(errors);
-            
-        })
-
-    }
-    */
-    clear = () => {
-
-        this.setState({
-            foods: [],
-        });
-
-    }
-
-    itemRender = (li, itemProps) => {
-        const itemChildren = (
-            <span>
-                <input type="checkbox" checked={itemProps.selected} onChange={() => { }} />
-                &nbsp;{li.props.children}
-            </span>
         );
-        return React.cloneElement(li, li.props, itemChildren);
-    }
+    };
+    
 
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
@@ -116,32 +90,62 @@ class Home extends Component {
     }
 
     render() {
-        const value = this.state.value;
-        const selected = 0;
+        const {foods} = this.state;
         return (
             <div>
                 <Navigation />
+                <button
+                    onClick={() => {
+                        this.setState({
+                            foods: [],
+                            optionSelected: []
+                        }, () =>
+                            this.getRecipes()
+                        );
+                    }}
+                >
+                    {"Clear"}
+                </button>
+                <button
+                    onClick={() => {
+                        this.getRecipes()
+                    }}
+                >
+                    {"Cook"}
+                </button>
+                <button
+                    onClick={() => {
+                        this.setState({
+                            fav_food: this.state.foods
+                        })
+                        firebase.database().ref(`users/${firebase.auth().currentUser.uid}`)
+                        .update({
+                            fav_food: this.state.fav_food
+                        });
 
-                <div className="home">
-                    <p>Select ingredients:</p>
-                    <MultiSelect
-                        data={ingredients}
-                        itemRender={this.itemRender}
-                        autoClose={true}
-                        value={value}
-                        onChange={this.handleChange}
-                    />
-
-                    <button onClick={this.handleFavoriteChange} class="favoriteFoodButton" type="submit">
-                        add to favorite
-                    </button>
-                    <button onClick={() => this.getRecipes()}>Submit</button>
-
-
+                        
+                        
+                    }}
+                >
+                    {"Add favorite"}
+                </button>
+                
+                <p>Select ingredients:</p>
+                <MySelect
+                    options={ingredients}
+                    isMulti
+                    closeMenuOnSelect={false}
+                    hideSelectedOptions={false}
+                    components={animatedComponents}
+                    onChange={this.handleChange}
+                    value={this.state.optionSelected}
+                />
+                
+                
+                
                     <div className="recipe-list">
                         {this.state.recipes}
                     </div>
-                </div>
             </div>
 
         );

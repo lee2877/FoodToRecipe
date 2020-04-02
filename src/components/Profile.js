@@ -27,10 +27,9 @@ class Profile extends Component {
             hideEmail: false,
             favRecipes: [],
             showModal: false,
+            
         };
     }
-
-
 
     logout() {
         fire.auth().signOut();
@@ -71,6 +70,8 @@ class Profile extends Component {
                 name: this.state.name,
                 hideName: this.state.hideName,
                 hideEmail: this.state.hideEmail,
+                fav_food: this.state.fav_food,
+                
             });
         this.handleClose();
 
@@ -85,8 +86,26 @@ class Profile extends Component {
         this.setState({ [event.target.id]: event.target.checked });
     }
 
+    sendEmailVerify(event){
+        var user = fire.auth().currentUser;
+        if(user.emailVerified===false){
+            
+            user.sendEmailVerification().then(function() {
+            // Email sent.
+            alert("Verification Sent!");
+            }).catch(function(error) {
+                // An error happened.
+            });
+        }else{
+            alert("Already Verified!");
+        }
+
+    }
+
 
     render() {
+        var user = fire.auth().currentUser;
+
         return (
             <div>
                 {/*Navbar at the top of all screens to navigate between pages */}
@@ -113,6 +132,15 @@ class Profile extends Component {
                     <div className="flex">
                         <div className="profile-label">Name: </div>
                         <div className="profile-content">{this.state.name}</div>
+                    </div>
+                    <hr />
+                    <div className="flex">
+                        <div className="profile-label">Verified: </div>
+                        <div className="profile-content">{user.emailVerified}</div>
+                        
+                    </div>
+                    <div>
+                        <button id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
                     </div>
                 </div>
 

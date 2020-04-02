@@ -78,6 +78,8 @@ class Login extends Component {
       });
   }
 
+  
+
   signup(e){
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -89,8 +91,9 @@ class Login extends Component {
         name: u.user.email,
         hideEmail: false,
         hideName: false,
-        FavFood: [],
+        fav_food: ["first element"],
         numFav_rec: 0,
+        email_verified: false,
         
       }
       );
