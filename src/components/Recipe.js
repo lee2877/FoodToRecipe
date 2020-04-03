@@ -69,10 +69,12 @@ class Recipe extends Component {
   render() {
     return (
       <div className="recipe">
-        <p className="recipe-title">{this.props.recipe}</p>
-        <div>
-          <img className="recipe-img" src={this.props.img} />
-        </div>
+          <p className="recipe-title">{this.props.recipe}</p>
+        <a href={this.props.url} className="recipe-link">
+          <div>
+            <img className="recipe-img" src={this.props.img} />
+          </div>
+        </a>
 
         {/* Bottom section of the recipe card */}
         <div className="recipe-bottom">
