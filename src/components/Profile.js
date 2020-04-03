@@ -153,11 +153,11 @@ class Profile extends Component {
                         
                     </div>
                     <div>
-                        <button id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
+                        <button class="btn btn-success" id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
                     </div>
                     <hr />
                     <div>
-                    <button id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
+                    <button class ="btn btn-danger"id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
                     </div>
                 </div>
 

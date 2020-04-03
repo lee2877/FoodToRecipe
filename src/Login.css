@@ -12,17 +12,21 @@
 }
 
 .textBoxes{
-    width: 30%
+    width: 50%
 }
 
-
-
-.log_sign_btn{
-
-   
+.totalPageCtrlGrid {
     
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E3E3E3;
     text-align: center;
-}
+    max-width: 650px;
+    margin: auto;
+    padding: 20px;
+  }
+
 
 .forgotPwCss{
     text-align: center;

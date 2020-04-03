@@ -125,8 +125,6 @@ class Home extends Component {
                             fav_food: this.state.fav_food
                         });
 
-                        
-                        
                     }}
                 >
                     {"Add favorite"}
@@ -143,9 +141,7 @@ class Home extends Component {
                     components={animatedComponents}
                     onChange={this.handleChange}
                     value={this.state.optionSelected}
-                />
-                
-                
+                />               
                 
                     <div className="recipe-list">
                         {this.state.recipes}

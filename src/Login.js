@@ -119,22 +119,19 @@ class Login extends Component {
         <div class ="top_boarder">
           Food To Recipe                                         
         </div>
-        <div class = "LoginCss container my-4" >
+        <div class = "LoginCss totalPageCtrlGrid" >
           <form className="form-type-material" onSubmit={this.handleSubmit}>
             <div class ="loginItems">
 
               <div class="form-group ">
                 <label class = "findText" for="inputEmail ">Email address</label>
                 <br></br>
-                <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class=" textBoxes col-xs-5 " id="exampleInputEmail1" placeholder="Enter email" />  
+                <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class=" textBoxes col-xs-4 " id="exampleInputEmail1" placeholder="Enter email" />  
               </div>
               <div class="form-group ">
                 <label class = "findText" for="inputPassword">Password</label><br></br>
                 <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class=" textBoxes col-xs-6" id="exampleInputPassword1" placeholder="Password" />
-              </div>
-
-            
-              
+              </div>             
               <div >
                 <br></br>
                 <span>
