@@ -74,7 +74,7 @@ class Home extends Component {
                 var returnArr = [];
                 snapshot.forEach(function(childSnapshot) {
                     var item = childSnapshot.val();
-
+                    console.log(item);
                     returnArr.push(item);
                 });
                 this.setState({

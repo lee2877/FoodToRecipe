@@ -59,6 +59,8 @@ class Recipe extends Component {
       fav_recRef.child(this.props.recipe).set({
         title: this.props.recipe,
         uri: this.props.uri,
+        url: this.props.url,
+        img: this.props.img
       })
     }
     else {
