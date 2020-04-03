@@ -57,6 +57,7 @@ class Home extends Component {
                                     recipe={hit.recipe.label}
                                     uri={hit.recipe.uri}
                                     img={hit.recipe.image}
+                                    url={hit.recipe.url}
                                     favRecipes={this.state.favRecipes}
                                 />
                             </div>
