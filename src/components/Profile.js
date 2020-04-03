@@ -27,7 +27,7 @@ class Profile extends Component {
             hideEmail: false,
             favRecipes: [],
             showModal: false,
-            
+            recipes: [],
         };
     }
 
@@ -36,19 +36,47 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        // this.setState({uid: userId});
-        fire.database().ref('/users/' + this.props.user.uid).on('value', snapshot => {
+        var userRef = fire.database().ref('/users/' + this.props.user.uid)
+        userRef.on('value', snapshot => {
             this.setState({
                 name: snapshot.val().name,
                 email: snapshot.val().email,
                 username: snapshot.val().username,
                 hideEmail: snapshot.val().hideEmail,
                 hideName: snapshot.val().hideName,
-                favRecipes: snapshot.val().fav_rec,
             });
         });
+        userRef.child('fav_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function (childSnapshot) {
+                    var item = childSnapshot.val();
+                    returnArr.push(item);
+                });
+                this.setState({
+                    favRecipes: returnArr,
+                })
+            }
+        });
+    }
 
-
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.favRecipes !== this.state.favRecipes) {
+            let recipes = this.state.favRecipes.map((hit) => {
+                return (
+                    <div key={hit.title}>
+                        <Recipe
+                            recipe={hit.title}
+                            uri={hit.uri}
+                            img={hit.img}
+                            url={hit.url}
+                            favRecipes={this.state.favRecipes}
+                        />
+                    </div>
+                )
+            })
+            this.setState({ recipes: recipes });
+        }
     }
 
     setName(name) {
@@ -71,7 +99,6 @@ class Profile extends Component {
                 hideName: this.state.hideName,
                 hideEmail: this.state.hideEmail,
                 fav_food: this.state.fav_food,
-                
             });
         this.handleClose();
 
@@ -86,33 +113,33 @@ class Profile extends Component {
         this.setState({ [event.target.id]: event.target.checked });
     }
 
-    sendEmailVerify(event){
+    sendEmailVerify(event) {
         var user = fire.auth().currentUser;
-        if(user.emailVerified===false){
-            
-            user.sendEmailVerification().then(function() {
-            // Email sent.
-            alert("Verification Sent!");
-            }).catch(function(error) {
+        if (user.emailVerified === false) {
+
+            user.sendEmailVerification().then(function () {
+                // Email sent.
+                alert("Verification Sent!");
+            }).catch(function (error) {
                 // An error happened.
             });
-        }else{
+        } else {
             alert("Already Verified!");
         }
 
     }
 
-    deleteUserAccount(event){
+    deleteUserAccount(event) {
         var user = fire.auth().currentUser;
         user.delete()
-        .then(function() {
-            alert("Successfully Deleted Your Account!");
-            console.log('Successfully deleted user');
-        })
-        .catch(function(error) {
-            alert("Error occured")
-            console.log('Error deleting user:', error);
-        });
+            .then(function () {
+                alert("Successfully Deleted Your Account!");
+                console.log('Successfully deleted user');
+            })
+            .catch(function (error) {
+                alert("Error occured")
+                console.log('Error deleting user:', error);
+            });
     }
 
 
@@ -150,20 +177,23 @@ class Profile extends Component {
                     <div className="flex">
                         <div className="profile-label">Verified: </div>
                         <div className="profile-content">{user.emailVerified}</div>
-                        
+
                     </div>
                     <div>
                         <button id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
                     </div>
                     <hr />
                     <div>
-                    <button id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
+                        <button id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
                     </div>
                 </div>
 
                 {/* Favorite Recipes        */}
-                <div className="favrec">
-                    
+                <div className="fav">
+                    <h1 className="favorite-title">Favorite Recipes</h1>
+                    <div className="favrec-list">
+                        {this.state.recipes}
+                    </div>
                 </div>
 
                 <Modal show={this.state.showModal} onHide={this.handleClose}>
