@@ -14,8 +14,8 @@
 }
 
 .findText{
-    margin-top:80px;
-    text-align:center;
+    
+    text-align:left;
     font-weight: bold;
 }
 
@@ -33,10 +33,11 @@
 
 
 .BottomBar2{
-    margin-top : 30%;
+    margin-top : 25%;
     background-color: #A4DA28;
     color: rgb(95, 94, 94);
     height: 50px;
     text-align: center;
     font-weight: bold;
+    font-style: italic;
 }

@@ -69,3 +69,17 @@
   color: #E8B94C;
   font-size: 28px;
 }
+
+.Btn-css{
+  margin-right: 5px;
+  margin-left: 10px;
+  width: 150px;
+  font-weight:bold;
+
+}
+
+.selectText{
+  margin-top: 30px;
+  margin-left: 10px;
+  font-weight:bold;
+}

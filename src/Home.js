@@ -95,7 +95,7 @@ class Home extends Component {
         return (
             <div>
                 <Navigation />
-                <button
+                <button class="Btn-css btn btn-primary"
                     onClick={() => {
                         this.setState({
                             foods: [],
@@ -107,15 +107,15 @@ class Home extends Component {
                     {"Clear"}
                 </button>
 
-                <button
+                <button class="Btn-css btn btn-warning"
                     onClick={() => {
                         this.getRecipes()
                     }}
                 >
                     {"Cook"}
                 </button>
-                
-                <button
+
+                <button class="Btn-css btn btn-success"
                     onClick={() => {
                         this.setState({
                             fav_food: this.state.foods
@@ -131,8 +131,10 @@ class Home extends Component {
                 >
                     {"Add favorite"}
                 </button>
+                <div class ="selectText">
+                    <p>Select ingredients:</p>
+                </div>
                 
-                <p>Select ingredients:</p>
                 <MySelect
                     options={ingredients}
                     isMulti

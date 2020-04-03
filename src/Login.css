@@ -7,10 +7,7 @@
 
 .LoginCss{
     text-align: center;
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right:auto;
-
+   
 
 }
 
@@ -21,9 +18,8 @@
 
 
 .log_sign_btn{
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
+
+   
     
     text-align: center;
 }
@@ -47,10 +43,11 @@
 }
 
 .BottomBar{
-    margin-top : 20%;
+    margin-top : 15%;
     background-color: #A4DA28;
     color: rgb(95, 94, 94);
     height: 50px;
     text-align: center;
     font-weight: bold;
+    font-style: italic;
 }
