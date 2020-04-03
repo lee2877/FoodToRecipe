@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import { browserHistory } from 'react-router';
 import fire from '../config/Fire';
+import './ForgotPW.css';
+
+
 
 class ForgotPW extends Component {
 
@@ -40,14 +43,24 @@ class ForgotPW extends Component {
     render(){
        
         return(
-            <div class="sendMailClass">           
-            <p>
-              <input value={this.state.mail} onChange={this.handleInputChange}
-                                             type="mail" name="mail" placeholder="Enter your Email"></input>
-            </p> 
-
-            <button type="submit" onClick={this.pwMail} class="btn btn-primary">Send Request</button>
             
+            <div>
+                <div class = "header">
+                    Find Password
+                </div>
+                <div class ="findText">
+                   Enter your email and click the Request button
+                </div>
+                <div class="ForgotPW">          
+                    <p>
+                    <input value={this.state.mail} onChange={this.handleInputChange}
+                                                    type="mail" name="mail" placeholder="Enter your Email"></input>
+                    </p> 
+                    <button className="Btn" type="submit" onClick={this.pwMail} >Send Request</button>
+                </div> 
+                
+                    
+                   
             </div>
         );
     }
