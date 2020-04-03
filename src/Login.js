@@ -3,6 +3,8 @@ import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
 import firebase from 'firebase';
 import ForgotPW from './components/ForgotPW'
+import './Login.css';
+import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -78,7 +80,7 @@ class Login extends Component {
       });
   }
 
-  
+
 
   signup(e){
     e.preventDefault();
@@ -111,27 +113,53 @@ class Login extends Component {
     
     return (
      <BrowserRouter>
-      <div className="col-md-6">
+       
+      <div className="col-md-6" >
+        <div class ="top_boarder">
+          Food To Recipe                                         
+        </div>
         <form className="form-type-material" onSubmit={this.handleSubmit}>
-          <div class="form-group">
-            <label for="inputEmail">Email address</label>
-            <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+          <div class ="loginItems">
+
+            <div class="form-group">
+              <label for="inputEmail">Email address</label>
+              <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />  
+            </div>
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+            </div>
+
+          
             
+            <div class = "log_sign_btn">
+              <br></br>
+              <span>
+              <button type="submit" onClick={this.login} style={ {width:350}}  class="btn btn-primary">Login</button>
+              &nbsp;&nbsp;
+              
+              <button  onClick={this.signup} style={ {width:350}} className="btn btn-success login-btn">Signup</button>
+              </span>
+            </div>
+
+            <div class="log_sign_btn">
+              <br></br>
+              <button onClick={this.signInWithGoogle} style={ {width:350}}  class="googleBtn" type="button">
+                Google
+              </button>
+              &nbsp;
+              <button onClick={this.signInWithFacebook} style={ {width:350}}  class="facebookBtn" type="button">
+                Facebook
+              </button>              
+            </div>    
+
           </div>
-          <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-          </div>
-            <button onClick={this.signInWithGoogle} class="googleBtn" type="button">
-              Google
-            </button>
-            <button onClick={this.signInWithFacebook} class="facebookBtn" type="button">
-              Facebook
-            </button>
-          <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success login-btn">Signup</button>
         </form>
-        <a href="../ForgotPW">forgotPW?</a>
+        
+        <div class="forgotPwCss">
+          <br></br>
+          <a href="../ForgotPW">Can't Sign In?</a>
+        </div>
         
       </div>
       </BrowserRouter>

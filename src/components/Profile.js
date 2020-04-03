@@ -102,6 +102,19 @@ class Profile extends Component {
 
     }
 
+    deleteUserAccount(event){
+        var user = fire.auth().currentUser;
+        user.delete()
+        .then(function() {
+            alert("Successfully Deleted Your Account!");
+            console.log('Successfully deleted user');
+        })
+        .catch(function(error) {
+            alert("Error occured")
+            console.log('Error deleting user:', error);
+        });
+    }
+
 
     render() {
         var user = fire.auth().currentUser;
@@ -141,6 +154,10 @@ class Profile extends Component {
                     </div>
                     <div>
                         <button id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
+                    </div>
+                    <hr />
+                    <div>
+                    <button id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
                     </div>
                 </div>
 
