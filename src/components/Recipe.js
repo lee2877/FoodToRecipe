@@ -17,6 +17,7 @@ class Recipe extends Component {
       img: '',
       likes: 0,
       favorited: false,
+      liked: false,
     };
   }
 
@@ -44,16 +45,46 @@ class Recipe extends Component {
         })
       }
     }
+    for (var i = 0; i < this.props.likedRecipes.length; i++) {
+      if (this.props.recipe == this.props.likedRecipes[i].title) {
+        this.setState({
+          liked: true,
+        })
+      }
+    }
   }
 
   handleLike() {
-
+    var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
+    if (!this.state.liked) {
+      fav_recRef.child(this.props.recipe).set({
+        title: this.props.recipe,
+        uri: this.props.uri,
+        url: this.props.url,
+        img: this.props.img
+      });
+      fire.database().ref('/recipes/'+this.props.recipe).set({
+        likes: this.state.likes+1
+      });
+      this.setState({
+        likes: this.state.likes+1
+      });
+    }
+    else {
+      fav_recRef.child(this.props.recipe).remove();
+      fire.database().ref('/recipes/'+this.props.recipe).set({
+        likes: this.state.likes-1
+      });
+      this.setState({
+        likes: this.state.likes-1
+      });
+    }
+    this.setState({
+      liked: !this.state.liked,
+    })
   }
 
   handleFavorite() {
-    this.setState({
-      favorited: !this.state.favorited,
-    })
     var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/fav_rec/');
     if (!this.state.favorited) {
       fav_recRef.child(this.props.recipe).set({
@@ -66,12 +97,15 @@ class Recipe extends Component {
     else {
       fav_recRef.child(this.props.recipe).remove();
     }
+    this.setState({
+      favorited: !this.state.favorited,
+    })
   }
 
   render() {
     return (
       <div className="recipe">
-          <p className="recipe-title">{this.props.recipe}</p>
+        <p className="recipe-title">{this.props.recipe}</p>
         <a href={this.props.url} className="recipe-link">
           <div>
             <img className="recipe-img" src={this.props.img} />
@@ -81,7 +115,9 @@ class Recipe extends Component {
         {/* Bottom section of the recipe card */}
         <div className="recipe-bottom">
           <div className="recipe-likes">
-            <FontAwesomeIcon className="recipe-likes-icon" icon={this.props.liked ? SolidHeart : OutlineHeart} />
+            <button className="recipe-likes-icon" onClick={() => this.handleLike()}>
+              <FontAwesomeIcon icon={this.state.liked ? SolidHeart : OutlineHeart} />
+            </button>
             <p className="recipe-likes-text">{this.state.likes} Likes</p>
           </div>
           <button className="recipe-favorite" onClick={() => this.handleFavorite()}>

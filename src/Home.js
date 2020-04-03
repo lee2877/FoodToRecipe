@@ -25,8 +25,7 @@ class Home extends Component {
             foods: [],
             likes: 0,
             favRecipes: [],
-            favorited: false,
-            loading: false,
+            likedRecipes: [],
         }
     }
     
@@ -59,6 +58,7 @@ class Home extends Component {
                                     img={hit.recipe.image}
                                     url={hit.recipe.url}
                                     favRecipes={this.state.favRecipes}
+                                    likedRecipes={this.state.likedRecipes}
                                 />
                             </div>
                         )
@@ -74,13 +74,23 @@ class Home extends Component {
                 var returnArr = [];
                 snapshot.forEach(function(childSnapshot) {
                     var item = childSnapshot.val();
-                    console.log(item);
                     returnArr.push(item);
                 });
                 this.setState({
                     favRecipes: returnArr,
                 })
-                console.log(this.state.favRecipes)
+            }
+        });
+        fire.database().ref('/users/' + fire.auth().currentUser.uid).child('liked_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function(childSnapshot) {
+                    var item = childSnapshot.val();
+                    returnArr.push(item);
+                });
+                this.setState({
+                    likedRecipes: returnArr,
+                })
             }
         });
     }

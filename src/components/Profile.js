@@ -26,6 +26,7 @@ class Profile extends Component {
             hideName: false,
             hideEmail: false,
             favRecipes: [],
+            likedRecipes: [],
             showModal: false,
             recipes: [],
         };
@@ -58,6 +59,18 @@ class Profile extends Component {
                 })
             }
         });
+        userRef.child('liked_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function(childSnapshot) {
+                    var item = childSnapshot.val();
+                    returnArr.push(item);
+                });
+                this.setState({
+                    likedRecipes: returnArr,
+                })
+            }
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -71,6 +84,7 @@ class Profile extends Component {
                             img={hit.img}
                             url={hit.url}
                             favRecipes={this.state.favRecipes}
+                            likedRecipes={this.state.likedRecipes}
                         />
                     </div>
                 )
