@@ -1,0 +1,42 @@
+.ForgotPW{
+    text-align: center;
+    margin-top: 30px;
+}
+.header{
+    display: inline-block;
+    margin-bottom: 10px;
+    background-color: #A4DA28;
+    box-shadow: 0 6px 10px grey;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 5px;
+    width: 100%;
+}
+
+.findText{
+    margin-top:80px;
+    text-align:center;
+    font-weight: bold;
+}
+
+.Btn{
+    color: #918d8d;
+    background-color:#A4DA28;
+    border-style: solid;
+    border-width:0px;
+    width: 13%;
+    text-align : center;
+    align-content: center;
+    border-radius: 7%;
+    margin-bottom: 5px;
+}
+
+
+.BottomBar2{
+    margin-top : 30%;
+    background-color: #A4DA28;
+    color: rgb(95, 94, 94);
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+}

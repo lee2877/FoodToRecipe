@@ -99,14 +99,14 @@ class Home extends Component {
                     onClick={() => {
                         this.setState({
                             foods: [],
-                            optionSelected: []
-                        }, () =>
+                            optionSelected: [] }, () =>
                             this.getRecipes()
                         );
                     }}
                 >
                     {"Clear"}
                 </button>
+
                 <button
                     onClick={() => {
                         this.getRecipes()
@@ -114,6 +114,7 @@ class Home extends Component {
                 >
                     {"Cook"}
                 </button>
+                
                 <button
                     onClick={() => {
                         this.setState({

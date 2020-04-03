@@ -5,7 +5,8 @@
 }
 
 
-.col-md-6{
+.LoginCss{
+    text-align: center;
     vertical-align: middle;
     margin-left: auto;
     margin-right:auto;
@@ -13,11 +14,17 @@
 
 }
 
+.textBoxes{
+    width: 30%
+}
+
+
+
 .log_sign_btn{
     margin-left:auto;
     margin-right:auto;
     position: relative;
-    border-radius: 30%;
+    
     text-align: center;
 }
 
@@ -27,6 +34,7 @@
 }
 
 .top_boarder{
+    color: rgb(95, 94, 94);
     display: inline-block;
     margin-bottom: 40px;
     background-color: #A4DA28;
@@ -35,4 +43,14 @@
     font-weight: bold;
     margin: 5px;
     width: 100%;
+    
+}
+
+.BottomBar{
+    margin-top : 20%;
+    background-color: #A4DA28;
+    color: rgb(95, 94, 94);
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
 }
