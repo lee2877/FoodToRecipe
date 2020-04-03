@@ -161,7 +161,7 @@ class Login extends Component {
           <a href="../ForgotPW">Can't Sign In?</a>
         </div>
         <div class="BottomBar">
-            Copyright by Haeun Lee, Brian Lang, Taehoon Kim (2020)
+            Copyright by Haeun Lee, Brian Long, Taehoon Kim (2020)
         </div>
       </div>
       </BrowserRouter>

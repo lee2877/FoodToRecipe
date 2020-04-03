@@ -61,7 +61,7 @@ class ForgotPW extends Component {
                     <button className="btn btn-info Btn" type="submit" onClick={this.handleGoBack} >Go Back</button>
                 </div> 
                 <div class="BottomBar2">
-                  Copyright by Haeun Lee, Brian Lang, Taehoon Kim (2020)
+                  Copyright by Haeun Lee, Brian Long, Taehoon Kim (2020)
                 </div>
                     
                    
