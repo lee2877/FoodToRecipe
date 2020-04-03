@@ -56,9 +56,13 @@ class ForgotPW extends Component {
                     <input value={this.state.mail} onChange={this.handleInputChange}
                                                     type="mail" name="mail" placeholder="Enter your Email"></input>
                     </p> 
-                    <button className="Btn" type="submit" onClick={this.pwMail} >Send Request</button>
+                    <button className="btn btn-success Btn" type="submit" onClick={this.pwMail} >Send Request</button>
+                    <br></br>
+                    <button className="btn btn-info Btn" type="submit" onClick={this.handleGoBack} >Go Back</button>
                 </div> 
-                
+                <div class="BottomBar2">
+                  Copyright by Haeun Lee, Brian Lang, Taehoon Kim (2020)
+                </div>
                     
                    
             </div>

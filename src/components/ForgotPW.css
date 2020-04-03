@@ -14,7 +14,7 @@
 }
 
 .findText{
-    margin-top:50px;
+    margin-top:80px;
     text-align:center;
     font-weight: bold;
 }
@@ -28,4 +28,15 @@
     text-align : center;
     align-content: center;
     border-radius: 7%;
+    margin-bottom: 5px;
+}
+
+
+.BottomBar2{
+    margin-top : 30%;
+    background-color: #A4DA28;
+    color: rgb(95, 94, 94);
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
 }

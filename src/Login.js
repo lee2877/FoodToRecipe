@@ -112,55 +112,60 @@ class Login extends Component {
   render() {
     
     return (
+      
      <BrowserRouter>
-       
-      <div className="col-md-6" >
+     
+      <div >
         <div class ="top_boarder">
           Food To Recipe                                         
         </div>
-        <form className="form-type-material" onSubmit={this.handleSubmit}>
-          <div class ="loginItems">
+        <div class = "LoginCss" >
+          <form className="form-type-material" onSubmit={this.handleSubmit}>
+            <div class ="loginItems">
 
-            <div class="form-group">
-              <label for="inputEmail">Email address</label>
-              <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />  
-            </div>
-            <div class="form-group">
-              <label for="inputPassword">Password</label>
-              <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-            </div>
+              <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <br></br>
+                <input  value={this.state.email} onChange={this.handleInputChange} type="email" name="email" class=" textBoxes col-xs-6 " id="exampleInputEmail1" placeholder="Enter email" />  
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">Password</label><br></br>
+                <input  value={this.state.password} onChange={this.handleInputChange} type="password" name="password" class=" textBoxes col-xs-6" id="exampleInputPassword1" placeholder="Password" />
+              </div>
 
-          
             
-            <div class = "log_sign_btn">
-              <br></br>
-              <span>
-              <button type="submit" onClick={this.login} style={ {width:350}}  class="btn btn-primary">Login</button>
-              &nbsp;&nbsp;
               
-              <button  onClick={this.signup} style={ {width:350}} className="btn btn-success login-btn">Signup</button>
-              </span>
+              <div >
+                <br></br>
+                <span>
+                <button  type="submit" onClick={this.login} style={ {width:250}}  class="btn btn-primary active">Login</button>
+                &nbsp;
+                
+                <button  onClick={this.signup} style={ {width:250}} className="btn btn-success login-btn active">Signup</button>
+                </span>
+              </div>
+
+              <div >
+                <br></br>
+                <button onClick={this.signInWithGoogle} style={ {width:250}}  class="googleBtn btn active" type="button">
+                  Google
+                </button>
+                &nbsp;
+                <button onClick={this.signInWithFacebook} style={ {width:250}}  class="facebookBtn btn btn-info active" type="button">
+                  Facebook
+                </button>              
+              </div>    
+
             </div>
-
-            <div class="log_sign_btn">
-              <br></br>
-              <button onClick={this.signInWithGoogle} style={ {width:350}}  class="googleBtn" type="button">
-                Google
-              </button>
-              &nbsp;
-              <button onClick={this.signInWithFacebook} style={ {width:350}}  class="facebookBtn" type="button">
-                Facebook
-              </button>              
-            </div>    
-
-          </div>
-        </form>
-        
+          </form>
+        </div>
         <div class="forgotPwCss">
           <br></br>
           <a href="../ForgotPW">Can't Sign In?</a>
         </div>
-        
+        <div class="BottomBar">
+            Copyright by Haeun Lee, Brian Lang, Taehoon Kim (2020)
+        </div>
       </div>
       </BrowserRouter>
       
