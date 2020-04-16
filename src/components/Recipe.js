@@ -5,6 +5,7 @@ import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as OutlineHeart } from '@fortawesome/free-regular-svg-icons';
 import { faStar as OutlineStar } from '@fortawesome/free-regular-svg-icons';
+import Comments from './Comments';
 
 
 class Recipe extends Component {
@@ -18,6 +19,11 @@ class Recipe extends Component {
       likes: 0,
       favorited: false,
       liked: false,
+      comments: [
+        {user: "Brian", text: "Great!"},
+        {user: "Tom", text: "Love this recipe!"},
+        {user: "T", text: "What happens if someone has a really long comment on a recipe? Does the text wrap? This should hopefully be a good test of that"}
+      ],
     };
   }
 
@@ -123,6 +129,9 @@ class Recipe extends Component {
           <button className="recipe-favorite" onClick={() => this.handleFavorite()}>
             <FontAwesomeIcon icon={this.state.favorited ? SolidStar : OutlineStar} />
           </button>
+        </div>
+        <div>
+          <Comments comments={this.state.comments}/>
         </div>
       </div>
     )
