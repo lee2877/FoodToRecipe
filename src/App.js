@@ -7,6 +7,7 @@ import Home from './Home';
 import Login from './Login';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
+import Ranking from './components/Ranking';
 
 
 
@@ -52,6 +53,8 @@ class App extends Component {
 
                   )}
               </div>
+            </Route>
+            <Route exact path="/Ranking" component={Ranking}>
             </Route>
             <Route exact path="/ForgotPW" component={ForgotPW}>
             </Route>

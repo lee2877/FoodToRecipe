@@ -22,6 +22,9 @@ class Navigation extends Component {
           <Link to="/profile">
             <button className="btn-profile">Profile</button>
           </Link>
+          <Link to ="/Ranking">
+            <button className="btn-profile">Ranking</button>
+          </Link>
           <div className="logout">
             <button className="btn-logout" onClick={this.logout} >Logout</button>
           </div>

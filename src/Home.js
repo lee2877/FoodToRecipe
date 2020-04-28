@@ -13,6 +13,8 @@ import { ingredients } from './ingredients.js';
 import MySelect from "./MySelect.js";
 import makeAnimated from "react-select/animated";
 import Notifications from "./components/Notifications";
+import Ranking from './components/Ranking';
+//import { BrowserRouter} from 'react-router-dom';
 
 const animatedComponents = makeAnimated()
 class Home extends Component {
@@ -125,7 +127,10 @@ class Home extends Component {
         const {foods} = this.state;
         return (
             
+                
+
             <div>
+               
                 <Navigation />
                 
                 <button class="Btn-css btn btn-primary"
@@ -165,7 +170,7 @@ class Home extends Component {
                 </button>
                 <button class="Btn-css btn btn-success"
                 >
-                    {"Sort by weight"}
+                    {"Sort by name"}
                 </button>
                 <div class ="selectText">
                     <p>Select ingredients:</p>
@@ -186,7 +191,7 @@ class Home extends Component {
                         {this.state.recipes}
                     </div>
             </div>
-
+                   
         );
 
     }
