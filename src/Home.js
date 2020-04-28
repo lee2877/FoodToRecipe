@@ -12,6 +12,7 @@ import Recipe from './components/Recipe';
 import { ingredients } from './ingredients.js';
 import MySelect from "./MySelect.js";
 import makeAnimated from "react-select/animated";
+import Notifications from "./components/Notifications";
 
 const animatedComponents = makeAnimated()
 class Home extends Component {
@@ -103,8 +104,10 @@ class Home extends Component {
     render() {
         const {foods} = this.state;
         return (
+            
             <div>
                 <Navigation />
+                
                 <button class="Btn-css btn btn-primary"
                     onClick={() => {
                         this.setState({
@@ -142,6 +145,7 @@ class Home extends Component {
                 <div class ="selectText">
                     <p>Select ingredients:</p>
                 </div>
+                
                 
                 <MySelect
                     options={ingredients}
