@@ -52,19 +52,39 @@ class Home extends Component {
                 }).then((data) => {
                     let recipes = data.hits.map((hit) => {
                         return (
-                            <div key={hit.recipe.label}>
+                            <div key={hit.recipe.label} recipe={hit.recipe.label} weight={hit.recipe.totalWeight}>
                                 <Recipe
                                     recipe={hit.recipe.label}
                                     uri={hit.recipe.uri}
                                     img={hit.recipe.image}
                                     url={hit.recipe.url}
+                                    totalWeight={hit.recipe.label.totalWeight}
                                     favRecipes={this.state.favRecipes}
                                     likedRecipes={this.state.likedRecipes}
                                 />
                             </div>
                         )
                     })
-                    this.setState({ recipes: recipes });
+
+                    console.log(recipes)
+                    
+                    var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
+                        if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
+                        if (a[1].key.toLowerCase() > b[1].key.toLowerCase()) { return 1; }
+                        return 0;
+                    }));
+              
+                    var arr = new Array();
+                    for (let recipe of sortedMap.entries()){
+                        arr.push(recipe[1]);
+                        console.log(recipe[1]);
+                    }
+
+                    var newMap = arr.map(function(data){
+                        return data;
+                    })
+
+                    this.setState({ recipes: [...newMap] });
                 })
         })
     }
@@ -124,6 +144,7 @@ class Home extends Component {
                     onClick={() => {
                         this.getRecipes()
                     }}
+                    
                 >
                     {"Cook"}
                 </button>
@@ -141,6 +162,10 @@ class Home extends Component {
                     }}
                 >
                     {"Add favorite"}
+                </button>
+                <button class="Btn-css btn btn-success"
+                >
+                    {"Sort by weight"}
                 </button>
                 <div class ="selectText">
                     <p>Select ingredients:</p>
