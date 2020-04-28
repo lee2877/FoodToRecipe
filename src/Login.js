@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
 import fire from './config/Fire';
 import firebase from 'firebase';
-import ForgotPW from './components/ForgotPW'
+import ForgotPW from './components/ForgotPW';
+
 import './Login.css';
 import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 

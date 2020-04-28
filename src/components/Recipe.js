@@ -5,7 +5,12 @@ import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as OutlineHeart } from '@fortawesome/free-regular-svg-icons';
 import { faStar as OutlineStar } from '@fortawesome/free-regular-svg-icons';
+//import Notifications from './Notifications';
 
+
+
+
+  
 
 class Recipe extends Component {
   constructor(props) {
@@ -21,7 +26,9 @@ class Recipe extends Component {
     };
   }
 
+  
   componentDidMount() {
+    
     fire.database().ref('/recipes/' + this.props.recipe).on("value", snapshot => {
       if (snapshot.exists()) {
         this.setState({
@@ -55,7 +62,9 @@ class Recipe extends Component {
   }
 
   handleLike() {
+    
     var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
+   
     if (!this.state.liked) {
       fav_recRef.child(this.props.recipe).set({
         title: this.props.recipe,
@@ -82,6 +91,9 @@ class Recipe extends Component {
     this.setState({
       liked: !this.state.liked,
     })
+
+    
+    
   }
 
   handleFavorite() {

@@ -20,9 +20,9 @@ class Notifications extends React.Component{
 
     handleClick(event){
         // Do something here such as
-        // console.log("Notification Clicked") OR
+        console.log("Notification Clicked");
         // window.focus() OR
-        // window.open("http://www.google.com")
+        //window.open("http://www.google.com");
 
         // Lastly, Close the notification
         this.n.close(event.target.tag);
@@ -36,12 +36,8 @@ class Notifications extends React.Component{
                     title="Hey There!"
                     body="Your Fav Food Updated!!"
                     timeout="2000"
-                    onClick={event => this.handleClick(event)}
+                    onClick={event => this.handleClick(event), this.showNotifications}
                 />
-
-                <button onClick={this.showNotifications}>
-                    Notify!!!
-                </button>
 
             </div>
         )
