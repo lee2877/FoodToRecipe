@@ -6,6 +6,7 @@ import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as OutlineHeart } from '@fortawesome/free-regular-svg-icons';
 import { faStar as OutlineStar } from '@fortawesome/free-regular-svg-icons';
 import Comments from './Comments';
+import InputComment from './InputComment';
 
 
 class Recipe extends Component {
@@ -13,8 +14,6 @@ class Recipe extends Component {
     super(props);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleLike = this.handleLike.bind(this);
-    this.handleCommentChange = this.handleCommentChange.bind(this);
-    this.submitComment = this.submitComment.bind(this);
 
     this.state = {
       img: '',
@@ -22,7 +21,6 @@ class Recipe extends Component {
       favorited: false,
       liked: false,
       comments: [],
-      value: '',
     };
   }
 
@@ -32,6 +30,7 @@ class Recipe extends Component {
         var returnArr = [];
         snapshot.child('comments').forEach(function (childSnapshot) {
           var comment = childSnapshot.val();
+          comment.commentId = childSnapshot.key
           returnArr.push(comment);
         })
         this.setState({
@@ -113,25 +112,6 @@ class Recipe extends Component {
     })
   }
 
-  handleCommentChange(event) {
-    this.setState({ value: event.target.value })
-  }
-
-  submitComment() {
-    var userId = fire.auth().currentUser.uid;
-    var username;
-    fire.database().ref('/users/' + userId).on('value', snapshot => {
-      username = snapshot.val().username //(snapshot.val() && snapshot.val().name) || 'Anonymous';
-    });
-    var newCommentRef = fire.database().ref('/recipes/' + this.props.recipe + '/comments/').push();
-    newCommentRef.set({
-      user: username,
-      text: this.state.value,
-    })
-    this.setState({
-      value: ''
-    })
-  }
 
   render() {
     return (
@@ -156,12 +136,9 @@ class Recipe extends Component {
           </button>
         </div>
         <div>
-          <Comments comments={this.state.comments} />
+          <Comments comments={this.state.comments} {...this.props}/>
         </div>
-        <div>
-          <input value={this.state.value} onChange={this.handleCommentChange} placeholder="Add a comment.." className="comment-input" />
-          <button onClick={() => this.submitComment()}>Submit</button>
-        </div>
+        <InputComment {...this.props} />
       </div>
     )
   }

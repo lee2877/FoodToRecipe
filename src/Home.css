@@ -79,6 +79,13 @@
   flex-direction: row;
 }
 
+.delete-comment {
+  position: absolute;
+  right: 5px;
+  background-color: #EBEBEB;
+  color: red;
+}
+
 .comment-input {
   border: none;
   border-radius: 18px;
