@@ -22,6 +22,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeSort = this.handleChangeSort.bind(this);
@@ -31,11 +32,18 @@ class Home extends Component {
             likes: 0,
             favRecipes: [],
             likedRecipes: [],
+            sortChecked: false
+            
         }
     }
 
-    handleChangeSort(checked) {
-        this.setState({ checked });
+    handleChangeSort(sortChecked) {
+        this.setState({ sortChecked });
+        this.getRecipes();
+    }
+
+    handleVegetarian(vegetarianChecked) {
+        this.setState({ vegetarianChecked});
     }
 
 
@@ -54,6 +62,7 @@ class Home extends Component {
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         let req = apiurl + "&q=" + this.state.foods.toString();
+        console.log(req);
         setTimeout(() => {
             fetch(req)
                 .then(results => {
@@ -76,25 +85,24 @@ class Home extends Component {
                     })
 
                     console.log(recipes)
-                    if(this.state.checked){
-                    var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
-                        if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
-                        if (a[1].key.toLowerCase() > b[1].key.toLowerCase()) { return 1; }
-                        return 0;
-                    }));
+                    if(this.state.sortChecked){
+                        var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
+                            if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
+                            if (a[1].key.toLowerCase() > b[1].key.toLowerCase()) { return 1; }
+                            return 0;
+                        }));
               
-                    var arr = new Array();
-                    for (let recipe of sortedMap.entries()){
-                        arr.push(recipe[1]);
-                        console.log(recipe[1]);
-                    }
+                        var arr = new Array();
+                        for (let recipe of sortedMap.entries()){
+                            arr.push(recipe[1]);
+                            console.log(recipe[1]);
+                        }
 
-                    var newMap = arr.map(function(data){
-                        return data;
-                    })
-                    
+                        var newMap = arr.map(function(data){
+                            return data;
+                        })
 
-                    this.setState({ recipes: [...newMap] });
+                        this.setState({ recipes: [...newMap] });
                     } else {
                         this.setState({ recipes: recipes});
                     }
@@ -180,9 +188,15 @@ class Home extends Component {
                     {"Add favorite"}
                 </button>
                 <label>
-                    <span>Sort</span>
-                    <Switch onChange={this.handleChangeSort} checked={this.state.checked} />
+                    <span>Sort    </span>
+                    <Switch onChange={this.handleChangeSort} sortChecked={this.state.sortChecked} />
                 </label>
+                <lable>
+                    <span>   Vegetarian    </span>
+                    <Switch onChange={this.handleVegetarian} vegetarianChecked={this.state.vegetarian} />
+                </lable>
+
+
                 <div class ="selectText">
                     <p>Select ingredients:</p>
                 </div>
