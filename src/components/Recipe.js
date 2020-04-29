@@ -13,25 +13,30 @@ class Recipe extends Component {
     super(props);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleLike = this.handleLike.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.submitComment = this.submitComment.bind(this);
 
     this.state = {
       img: '',
       likes: 0,
       favorited: false,
       liked: false,
-      comments: [
-        {user: "Brian", text: "Great!"},
-        {user: "Tom", text: "Love this recipe!"},
-        {user: "T", text: "What happens if someone has a really long comment on a recipe? Does the text wrap? This should hopefully be a good test of that"}
-      ],
+      comments: [],
+      value: '',
     };
   }
 
   componentDidMount() {
     fire.database().ref('/recipes/' + this.props.recipe).on("value", snapshot => {
       if (snapshot.exists()) {
+        var returnArr = [];
+        snapshot.child('comments').forEach(function (childSnapshot) {
+          var comment = childSnapshot.val();
+          returnArr.push(comment);
+        })
         this.setState({
-          likes: snapshot.val().likes
+          likes: snapshot.val().likes,
+          comments: returnArr,
         })
       } else {
         this.setState({
@@ -61,28 +66,28 @@ class Recipe extends Component {
   }
 
   handleLike() {
-    var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
+    var like_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
     if (!this.state.liked) {
-      fav_recRef.child(this.props.recipe).set({
+      like_recRef.child(this.props.recipe).set({
         title: this.props.recipe,
         uri: this.props.uri,
         url: this.props.url,
         img: this.props.img
       });
-      fire.database().ref('/recipes/'+this.props.recipe).set({
-        likes: this.state.likes+1
+      fire.database().ref('/recipes/' + this.props.recipe).update({
+        likes: this.state.likes + 1
       });
       this.setState({
-        likes: this.state.likes+1
+        likes: this.state.likes + 1
       });
     }
     else {
-      fav_recRef.child(this.props.recipe).remove();
-      fire.database().ref('/recipes/'+this.props.recipe).set({
-        likes: this.state.likes-1
+      like_recRef.child(this.props.recipe).remove();
+      fire.database().ref('/recipes/' + this.props.recipe).update({
+        likes: this.state.likes - 1
       });
       this.setState({
-        likes: this.state.likes-1
+        likes: this.state.likes - 1
       });
     }
     this.setState({
@@ -105,6 +110,26 @@ class Recipe extends Component {
     }
     this.setState({
       favorited: !this.state.favorited,
+    })
+  }
+
+  handleCommentChange(event) {
+    this.setState({ value: event.target.value })
+  }
+
+  submitComment() {
+    var userId = fire.auth().currentUser.uid;
+    var username;
+    fire.database().ref('/users/' + userId).on('value', snapshot => {
+      username = snapshot.val().username //(snapshot.val() && snapshot.val().name) || 'Anonymous';
+    });
+    var newCommentRef = fire.database().ref('/recipes/' + this.props.recipe + '/comments/').push();
+    newCommentRef.set({
+      user: username,
+      text: this.state.value,
+    })
+    this.setState({
+      value: ''
     })
   }
 
@@ -131,7 +156,11 @@ class Recipe extends Component {
           </button>
         </div>
         <div>
-          <Comments comments={this.state.comments}/>
+          <Comments comments={this.state.comments} />
+        </div>
+        <div>
+          <input value={this.state.value} onChange={this.handleCommentChange} placeholder="Add a comment.." className="comment-input" />
+          <button onClick={() => this.submitComment()}>Submit</button>
         </div>
       </div>
     )

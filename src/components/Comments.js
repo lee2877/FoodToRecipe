@@ -7,15 +7,17 @@ class Comments extends Component {
   }
 
   render(){
-    const commentsList = this.props.comments.map((comment) => 
-      <div key={comment.text} className="indv-comment">
-        <div style={{fontWeight: 600}}>{comment.user}:</div>
-        <div style={{textIndent: 8, textAlign: "left"}}>{comment.text}</div>
-      </div>
-    )
+    if(this.props.comments){
+      const commentsList = this.props.comments.map((comment) => 
+        <div key={comment.user+comment.text} className="indv-comment">
+          <div style={{fontWeight: 600}}>{comment.user}:</div>
+          <div style={{textIndent: 8, textAlign: "left"}}>{comment.text}</div>
+        </div>
+      )
     return(
       commentsList
     );
+    }else return null;
   }
 
 }export default Comments;

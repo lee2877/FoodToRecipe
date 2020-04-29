@@ -55,6 +55,7 @@
   color: #A4DA28;
   background: none;
   font-size: 28px;
+  outline: none;
 }
 
 .recipe-likes-text {
@@ -70,11 +71,20 @@
   border: none;
   color: #E8B94C;
   font-size: 28px;
+  outline: none
 }
 
 .indv-comment {
   display: flex;
   flex-direction: row;
+}
+
+.comment-input {
+  border: none;
+  border-radius: 18px;
+  background-color: #E1E1E1;
+  padding-left: 8px;
+  outline: none;
 }
 
 .Btn-css{
