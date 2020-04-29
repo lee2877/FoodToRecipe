@@ -44,7 +44,22 @@ class Login extends Component {
   signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    fire.auth().signInWithPopup(provider);
+    fire.auth().signInWithPopup(provider)
+    .then((u)=>{
+      console.log(u);
+      return fire.database().ref('users/'+u.user.uid).set({
+        username: u.user.email,
+        email: u.user.email,
+        name: u.user.email,
+        hideEmail: false,
+        hideName: false,
+        fav_food: ["first element"],
+        numFav_rec: 0,
+        email_verified: false,
+        
+      }
+      );
+    });
 
   }
   signInWithFacebook = () => {
@@ -59,6 +74,21 @@ class Login extends Component {
       // The signed-in user info.
       var fbuser = result.user;
       
+    })
+    .then((u)=>{
+      console.log(u);
+      return fire.database().ref('users/'+u.user.uid).set({
+        username: u.user.email,
+        email: u.user.email,
+        name: u.user.email,
+        hideEmail: false,
+        hideName: false,
+        fav_food: ["first element"],
+        numFav_rec: 0,
+        email_verified: false,
+        
+      }
+      );
     }).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
