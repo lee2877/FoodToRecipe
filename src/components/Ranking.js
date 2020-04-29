@@ -20,6 +20,7 @@ class Ranking extends Component{
             likes: 0,
             favRecipes: [],
             likedRecipes: [],
+            countLikes:[]
         }
 
     }
@@ -70,6 +71,7 @@ class Ranking extends Component{
     getRank(){
         var arr = new Array();
         var temparr = ["1"];
+        var likeCount = new Array();
      
         console.log("recipe "+ this.props.recipes);
         var rankRec = fire.database().ref('/recipes/');
@@ -78,6 +80,7 @@ class Ranking extends Component{
             arr.push(snap.key.toString());
             // temparr.push(snap.key.toString());
             console.log(snap.key + ' Likes ' + snap.val().likes);
+            likeCount.push(snap.val().likes);
             //console.log(snap);
         })
 
@@ -87,20 +90,20 @@ class Ranking extends Component{
 
         var arr2 = ["1", "2"];
         console.log("hahaha");
-        console.log(arr);
-        console.log(arr[1]);
+        //console.log(arr);
+        //console.log(arr[1]);
         var arr3 = new Array();
         
-        arr3.push("10: "+arr[0]);
-        arr3.push("9:  "+arr[1]);
-        arr3.push("8:  "+arr[2]);
-        arr3.push("7:  "+arr[3]);
-        arr3.push("6:  "+arr[4]);
-        arr3.push("5:  "+arr[5]);
-        arr3.push("4:  "+arr[6]);
-        arr3.push("3:  "+arr[7]);
-        arr3.push("2:  "+arr[8]);
-        arr3.push("1: "+ arr[9]);
+        arr3.push("10: "+arr[0] + "- Likes " + likeCount[0]);
+        arr3.push("9:  "+arr[1] + "- Likes " + likeCount[1]);
+        arr3.push("8:  "+arr[2] + "- Likes " + likeCount[2]);
+        arr3.push("7:  "+arr[3] + "- Likes " + likeCount[3]);
+        arr3.push("6:  "+arr[4] + "- Likes " + likeCount[4]);
+        arr3.push("5:  "+arr[5] + "- Likes " + likeCount[5]);
+        arr3.push("4:  "+arr[6] + "- Likes " + likeCount[6]);
+        arr3.push("3:  "+arr[7] + "- Likes " + likeCount[7]);
+        arr3.push("2:  "+arr[8] + "- Likes " + likeCount[8]);
+        arr3.push("1: "+ arr[9] + "- Likes " + likeCount[9]);
 
 
         // arr.keys;
@@ -111,6 +114,7 @@ class Ranking extends Component{
 
         
         this.setState({ recipes: arr3 });
+        this.setState({ countLikes : likeCount });
 
         // console.log("-------------------------------------");
         // console.log(this.state.recipes);
@@ -124,20 +128,20 @@ class Ranking extends Component{
         return(
             <div>
        
-                <button className="btn btn-info Btn" type="submit" onClick={this.handleGoBack} >Go Back</button>
+                <button className="btn btn-info Btn" type="submit" onClick={this.handleGoBack} >Back</button>
                 <button className="btn btn-info Btn" type="submit" onClick={this.getRank} >GetRank</button>
-                <div>
-                <div class='recipe-list'>{this.state.recipes[9]}</div>
-                <div class='recipe-list'>{this.state.recipes[8]}</div>
-                <div class='recipe-list'>{this.state.recipes[7]}</div>
-                <div class='recipe-list'>{this.state.recipes[6]}</div>
-                <div class='recipe-list'>{this.state.recipes[5]}</div>
-                <div class='recipe-list'>{this.state.recipes[4]}</div>
-                <div class='recipe-list'>{this.state.recipes[3]}</div>
-                <div class='recipe-list'>{this.state.recipes[2]}</div>
-                <div class='recipe-list'>{this.state.recipes[1]}</div>
-                <div class='recipe-list'>{this.state.recipes[0]}</div>
-                </div>
+                <p class='recipe-title'>Top 10 Recipies</p>
+                <body>
+                <p class='recipe-list-rank' >{this.state.recipes[9]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[8]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[7]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[6]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[5]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[4]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[3]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[1]}</p>
+                <p class='recipe-list-rank'>{this.state.recipes[0]}</p>
+                </body>
 
 
 
