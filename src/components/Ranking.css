@@ -7,3 +7,11 @@
     font-weight: bold;
     font-style: italic;
 }
+
+
+.recipe-list {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }

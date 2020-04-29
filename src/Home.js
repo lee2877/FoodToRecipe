@@ -47,6 +47,7 @@ class Home extends Component {
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         let req = apiurl + "&q=" + this.state.foods.toString();
+        console.log(req);
         setTimeout(() => {
             fetch(req)
                 .then(results => {
@@ -66,6 +67,7 @@ class Home extends Component {
                             </div>
                         )
                     })
+                    console.log(recipes);
                     this.setState({ recipes: recipes });
                 })
         })
