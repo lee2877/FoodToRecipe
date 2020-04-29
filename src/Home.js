@@ -3,7 +3,7 @@ import './Home.css';
 import fire from './config/Fire';
 import firebase from 'firebase';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
@@ -14,6 +14,7 @@ import MySelect from "./MySelect.js";
 import makeAnimated from "react-select/animated";
 import Notifications from "./components/Notifications";
 import Ranking from './components/Ranking';
+import Switch from "react-switch";
 //import { BrowserRouter} from 'react-router-dom';
 
 const animatedComponents = makeAnimated()
@@ -23,6 +24,7 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeSort = this.handleChangeSort.bind(this);
         this.state = {
             recipes: [],
             foods: [],
@@ -31,7 +33,12 @@ class Home extends Component {
             likedRecipes: [],
         }
     }
-    
+
+    handleChangeSort(checked) {
+        this.setState({ checked });
+    }
+
+
     handleChange = selected => {
         var i = 1;
         var ingr = [];
@@ -69,7 +76,7 @@ class Home extends Component {
                     })
 
                     console.log(recipes)
-                    
+                    if(this.state.checked){
                     var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
                         if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
                         if (a[1].key.toLowerCase() > b[1].key.toLowerCase()) { return 1; }
@@ -85,8 +92,12 @@ class Home extends Component {
                     var newMap = arr.map(function(data){
                         return data;
                     })
+                    
 
                     this.setState({ recipes: [...newMap] });
+                    } else {
+                        this.setState({ recipes: recipes});
+                    }
                 })
         })
     }
@@ -168,10 +179,10 @@ class Home extends Component {
                 >
                     {"Add favorite"}
                 </button>
-                <button class="Btn-css btn btn-success"
-                >
-                    {"Sort by name"}
-                </button>
+                <label>
+                    <span>Sort</span>
+                    <Switch onChange={this.handleChangeSort} checked={this.state.checked} />
+                </label>
                 <div class ="selectText">
                     <p>Select ingredients:</p>
                 </div>
@@ -187,9 +198,9 @@ class Home extends Component {
                     value={this.state.optionSelected}
                 />               
                 
-                    <div className="recipe-list">
-                        {this.state.recipes}
-                    </div>
+                <div className="recipe-list">
+                    {this.state.recipes}
+                </div>
             </div>
                    
         );
