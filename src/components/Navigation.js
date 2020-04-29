@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fire from '../config/Fire';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
+import Title from '../Title.png'
 
 class Navigation extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Navigation extends Component {
       <div>
         <Navbar>
           <Link to="/">
-            <p className="title">Food2Recipe</p>
+            <img src={Title} alt="Food2Recipe" className="title"/>
           </Link>
           <Link to="/profile">
             <button className="btn-profile">Profile</button>
