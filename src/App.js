@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import fire from './config/Fire.js';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Profile from './components/Profile';
@@ -40,40 +40,18 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <Switch>
-
-            <Route exact path="/profile">
-              <div>
-                {this.state.user ? (
-                  <Profile user={this.state.user} />
-                ) :
-                  (
-                    <Login />
-
-                  )}
-              </div>
-            </Route>
-            <Route exact path="/Ranking" component={Ranking}>
-            </Route>
-            <Route exact path="/ForgotPW" component={ForgotPW}>
-            </Route>
-            <Route exact path="/Login">
-            </Route>
-            <Route path="/">
-              <div>
-                {this.state.user ? (
-                  <Home />
-                ) :
-                  (
-                    <Login />
-
-                  )}
-              </div>
-            </Route>
-
-          </Switch>
-        </div>
+        {this.state.user
+          ? <div>
+            <Switch>
+              <Route exact path="/profile/:user" component={Profile} />
+              <Route exact path="/Ranking" component={Ranking}>
+              </Route>
+              <Route exact path="/ForgotPW" component={ForgotPW}>
+              </Route>
+              <Route path="/" component={Home} />
+            </Switch>
+          </div>
+          : <Login />}
       </Router>
     );
   }
