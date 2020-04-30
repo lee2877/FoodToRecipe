@@ -10,13 +10,14 @@ import ForgotPW from './components/ForgotPW';
 import Navigation from './components/Navigation';
 import Recipe from './components/Recipe';
 import { ingredients } from './ingredients.js';
+import { vegetarian } from './vegetarian.js';
 import MySelect from "./MySelect.js";
 import makeAnimated from "react-select/animated";
 import Notifications from "./components/Notifications";
 import Ranking from './components/Ranking';
 import Switch from "react-switch";
 //import { BrowserRouter} from 'react-router-dom';
-
+var ingred = "ingredients";
 const animatedComponents = makeAnimated()
 class Home extends Component {
     constructor(props) {
@@ -26,16 +27,19 @@ class Home extends Component {
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeSort = this.handleChangeSort.bind(this);
+        this.handleVegetarian = this.handleVegetarian.bind(this);
         this.state = {
             recipes: [],
             foods: [],
             likes: 0,
             favRecipes: [],
             likedRecipes: [],
-            sortChecked: false
+            sortChecked: false,
+            vegetarianChecked: false
             
         }
     }
+    
 
     handleChangeSort(sortChecked) {
         this.setState({ sortChecked });
@@ -43,7 +47,12 @@ class Home extends Component {
     }
 
     handleVegetarian(vegetarianChecked) {
-        this.setState({ vegetarianChecked});
+        this.setState({ vegetarianChecked });
+    }
+    changeIngredients(vegetarianChecked) {
+        if(vegetarianChecked){
+            ingred = "vegetarian";
+        }
     }
 
 
@@ -95,7 +104,7 @@ class Home extends Component {
                         var arr = new Array();
                         for (let recipe of sortedMap.entries()){
                             arr.push(recipe[1]);
-                            console.log(recipe[1]);
+                            
                         }
 
                         var newMap = arr.map(function(data){
@@ -143,6 +152,7 @@ class Home extends Component {
     }
 
     render() {
+        
         const {foods} = this.state;
         return (
             
@@ -187,13 +197,19 @@ class Home extends Component {
                 >
                     {"Add favorite"}
                 </button>
-                <label>
-                    <span>Sort    </span>
-                    <Switch onChange={this.handleChangeSort} sortChecked={this.state.sortChecked} />
-                </label>
+                <button class="Btn-css btn btn-success"
+                    onClick={() => {
+                        this.setState({ sortChecked : true })
+                        this.getRecipes();
+
+                    }}
+                >
+                    {"Sort by name"}
+                </button>
+                
                 <lable>
                     <span>   Vegetarian    </span>
-                    <Switch onChange={this.handleVegetarian} vegetarianChecked={this.state.vegetarian} />
+                    <Switch onChange={this.handleVegetarian} vegetarianChecked={this.state.vegetarianChecked} />
                 </lable>
 
 
@@ -201,8 +217,10 @@ class Home extends Component {
                     <p>Select ingredients:</p>
                 </div>
                 
-                
-                <MySelect
+                    
+                    
+                    <MySelect
+                    
                     options={ingredients}
                     isMulti
                     closeMenuOnSelect={false}
@@ -210,7 +228,8 @@ class Home extends Component {
                     components={animatedComponents}
                     onChange={this.handleChange}
                     value={this.state.optionSelected}
-                />               
+                    />     
+                       
                 
                 <div className="recipe-list">
                     {this.state.recipes}

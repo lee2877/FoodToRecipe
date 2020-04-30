@@ -1,8 +1,6 @@
-export const ingredients = [
-    { value: "egg", label: "egg"},
-    { value: "chicken", label: "chicken"},
-    { value: "milk", label: "milk"},
-    { value: "beef", label: "beef"},
+export const vegetarian = [
+    { value: "egg", label: "egg" },
+    { value: "milk", label: "milk" },
     { value: "banana", label: "banana" },
     { value: "apple", label: "apple" },
     { value: "bean", label: "bean" },
