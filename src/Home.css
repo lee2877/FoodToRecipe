@@ -19,8 +19,7 @@
   border-radius: 20px;
   border-width: 1.25px;
   text-align: center;
-  width: 300px;
-  height: 400px;
+  width: 340px;
   box-shadow: 0 2px 10px grey;
 }
 
@@ -40,6 +39,7 @@
   justify-content: space-between;
   position: relative;
   margin: 15px;
+  margin-bottom: 3px;
   font-size: 19px;
 }
 
@@ -55,6 +55,7 @@
   color: #A4DA28;
   background: none;
   font-size: 28px;
+  outline: none;
 }
 
 .recipe-likes-text {
@@ -70,6 +71,27 @@
   border: none;
   color: #E8B94C;
   font-size: 28px;
+  outline: none
+}
+
+.indv-comment {
+  display: flex;
+  flex-direction: row;
+}
+
+.delete-comment {
+  position: absolute;
+  right: 5px;
+  background-color: #EBEBEB;
+  color: red;
+}
+
+.comment-input {
+  border: none;
+  border-radius: 18px;
+  background-color: #E1E1E1;
+  padding-left: 8px;
+  outline: none;
 }
 
 .Btn-css{

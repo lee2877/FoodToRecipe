@@ -5,6 +5,8 @@ import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as OutlineHeart } from '@fortawesome/free-regular-svg-icons';
 import { faStar as OutlineStar } from '@fortawesome/free-regular-svg-icons';
+import Comments from './Comments';
+import InputComment from './InputComment';
 //import Notifications from './Notifications';
 
 
@@ -23,6 +25,7 @@ class Recipe extends Component {
       likes: 0,
       favorited: false,
       liked: false,
+      comments: [],
     };
   }
 
@@ -31,8 +34,15 @@ class Recipe extends Component {
     
     fire.database().ref('/recipes/' + this.props.recipe).on("value", snapshot => {
       if (snapshot.exists()) {
+        var returnArr = [];
+        snapshot.child('comments').forEach(function (childSnapshot) {
+          var comment = childSnapshot.val();
+          comment.commentId = childSnapshot.key
+          returnArr.push(comment);
+        })
         this.setState({
-          likes: snapshot.val().likes
+          likes: snapshot.val().likes,
+          comments: returnArr,
         })
       } else {
         this.setState({
@@ -62,30 +72,28 @@ class Recipe extends Component {
   }
 
   handleLike() {
-    
-    var fav_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
-   
+    var like_recRef = fire.database().ref('/users/' + fire.auth().currentUser.uid + '/liked_rec/');
     if (!this.state.liked) {
-      fav_recRef.child(this.props.recipe).set({
+      like_recRef.child(this.props.recipe).set({
         title: this.props.recipe,
         uri: this.props.uri,
         url: this.props.url,
         img: this.props.img
       });
-      fire.database().ref('/recipes/'+this.props.recipe).set({
-        likes: this.state.likes+1
+      fire.database().ref('/recipes/' + this.props.recipe).update({
+        likes: this.state.likes + 1
       });
       this.setState({
-        likes: this.state.likes+1
+        likes: this.state.likes + 1
       });
     }
     else {
-      fav_recRef.child(this.props.recipe).remove();
-      fire.database().ref('/recipes/'+this.props.recipe).set({
-        likes: this.state.likes-1
+      like_recRef.child(this.props.recipe).remove();
+      fire.database().ref('/recipes/' + this.props.recipe).update({
+        likes: this.state.likes - 1
       });
       this.setState({
-        likes: this.state.likes-1
+        likes: this.state.likes - 1
       });
     }
     this.setState({
@@ -114,6 +122,7 @@ class Recipe extends Component {
     })
   }
 
+
   render() {
     return (
       <div className="recipe">
@@ -136,6 +145,10 @@ class Recipe extends Component {
             <FontAwesomeIcon icon={this.state.favorited ? SolidStar : OutlineStar} />
           </button>
         </div>
+        <div>
+          <Comments comments={this.state.comments} {...this.props}/>
+        </div>
+        <InputComment {...this.props} />
       </div>
     )
   }
