@@ -7,7 +7,12 @@ import { faHeart as OutlineHeart } from '@fortawesome/free-regular-svg-icons';
 import { faStar as OutlineStar } from '@fortawesome/free-regular-svg-icons';
 import Comments from './Comments';
 import InputComment from './InputComment';
+//import Notifications from './Notifications';
 
+
+
+
+  
 
 class Recipe extends Component {
   constructor(props) {
@@ -24,7 +29,9 @@ class Recipe extends Component {
     };
   }
 
+  
   componentDidMount() {
+    
     fire.database().ref('/recipes/' + this.props.recipe).on("value", snapshot => {
       if (snapshot.exists()) {
         var returnArr = [];
@@ -92,6 +99,9 @@ class Recipe extends Component {
     this.setState({
       liked: !this.state.liked,
     })
+
+    
+    
   }
 
   handleFavorite() {

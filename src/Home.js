@@ -3,7 +3,7 @@ import './Home.css';
 import fire from './config/Fire';
 import firebase from 'firebase';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Profile from './components/Profile';
 import ForgotPW from './components/ForgotPW';
@@ -12,23 +12,41 @@ import Recipe from './components/Recipe';
 import { ingredients } from './ingredients.js';
 import MySelect from "./MySelect.js";
 import makeAnimated from "react-select/animated";
+import Notifications from "./components/Notifications";
+import Ranking from './components/Ranking';
+import Switch from "react-switch";
+//import { BrowserRouter} from 'react-router-dom';
 
 const animatedComponents = makeAnimated()
 class Home extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        
         this.getRecipes = this.getRecipes.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeSort = this.handleChangeSort.bind(this);
         this.state = {
             recipes: [],
             foods: [],
             likes: 0,
             favRecipes: [],
             likedRecipes: [],
+            sortChecked: false
+            
         }
     }
-    
+
+    handleChangeSort(sortChecked) {
+        this.setState({ sortChecked });
+        this.getRecipes();
+    }
+
+    handleVegetarian(vegetarianChecked) {
+        this.setState({ vegetarianChecked});
+    }
+
+
     handleChange = selected => {
         var i = 1;
         var ingr = [];
@@ -44,6 +62,7 @@ class Home extends Component {
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         let req = apiurl + "&q=" + this.state.foods.toString();
+        console.log(req);
         setTimeout(() => {
             fetch(req)
                 .then(results => {
@@ -51,19 +70,42 @@ class Home extends Component {
                 }).then((data) => {
                     let recipes = data.hits.map((hit) => {
                         return (
-                            <div key={hit.recipe.label}>
+                            <div key={hit.recipe.label} recipe={hit.recipe.label} weight={hit.recipe.totalWeight}>
                                 <Recipe
                                     recipe={hit.recipe.label}
                                     uri={hit.recipe.uri}
                                     img={hit.recipe.image}
                                     url={hit.recipe.url}
+                                    totalWeight={hit.recipe.label.totalWeight}
                                     favRecipes={this.state.favRecipes}
                                     likedRecipes={this.state.likedRecipes}
                                 />
                             </div>
                         )
                     })
-                    this.setState({ recipes: recipes });
+
+                    console.log(recipes)
+                    if(this.state.sortChecked){
+                        var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
+                            if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
+                            if (a[1].key.toLowerCase() > b[1].key.toLowerCase()) { return 1; }
+                            return 0;
+                        }));
+              
+                        var arr = new Array();
+                        for (let recipe of sortedMap.entries()){
+                            arr.push(recipe[1]);
+                            console.log(recipe[1]);
+                        }
+
+                        var newMap = arr.map(function(data){
+                            return data;
+                        })
+
+                        this.setState({ recipes: [...newMap] });
+                    } else {
+                        this.setState({ recipes: recipes});
+                    }
                 })
         })
     }
@@ -103,8 +145,13 @@ class Home extends Component {
     render() {
         const {foods} = this.state;
         return (
+            
+                
+
             <div>
+               
                 <Navigation />
+                
                 <button class="Btn-css btn btn-primary"
                     onClick={() => {
                         this.setState({
@@ -121,6 +168,7 @@ class Home extends Component {
                     onClick={() => {
                         this.getRecipes()
                     }}
+                    
                 >
                     {"Cook"}
                 </button>
@@ -139,9 +187,20 @@ class Home extends Component {
                 >
                     {"Add favorite"}
                 </button>
+                <label>
+                    <span>Sort    </span>
+                    <Switch onChange={this.handleChangeSort} sortChecked={this.state.sortChecked} />
+                </label>
+                <lable>
+                    <span>   Vegetarian    </span>
+                    <Switch onChange={this.handleVegetarian} vegetarianChecked={this.state.vegetarian} />
+                </lable>
+
+
                 <div class ="selectText">
                     <p>Select ingredients:</p>
                 </div>
+                
                 
                 <MySelect
                     options={ingredients}
@@ -153,11 +212,11 @@ class Home extends Component {
                     value={this.state.optionSelected}
                 />               
                 
-                    <div className="recipe-list">
-                        {this.state.recipes}
-                    </div>
+                <div className="recipe-list">
+                    {this.state.recipes}
+                </div>
             </div>
-
+                   
         );
 
     }

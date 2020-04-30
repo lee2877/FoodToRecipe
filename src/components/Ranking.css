@@ -1,0 +1,28 @@
+.BottomBar2{
+    margin-top : 25%;
+    background-color: #A4DA28;
+    color: rgb(95, 94, 94);
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+.recipe-list-rank {
+    margin-left: 25%;
+    margin-right: 25%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+  }
+
+  .rank-title{
+      font-size: 40px;
+      margin-left : 25%;
+      margin-right: 25%;
+      color: green;
+      font-weight: bold;
+  }

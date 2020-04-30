@@ -8,6 +8,7 @@ import fire from '../config/Fire';
 import Form from 'react-bootstrap/Form';
 import './Profile.css'
 import Recipe from './Recipe';
+import { withRouter } from 'react-router';
 // import {withAuth} from './withAuth';
 
 class Profile extends Component {
@@ -20,13 +21,15 @@ class Profile extends Component {
         this.toggleHide = this.toggleHide.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
+            user: '',
             username: '',
             email: '',
             name: '',
             hideName: false,
             hideEmail: false,
-            favRecipes: [],
-            likedRecipes: [],
+            profileFavRecipes: [],
+            userFavRecipes: [],
+            userLikedRecipes: [],
             showModal: false,
             recipes: [],
         };
@@ -37,8 +40,13 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        var userRef = fire.database().ref('/users/' + this.props.user.uid)
-        userRef.on('value', snapshot => {
+        var user = fire.auth().currentUser;
+        this.setState({
+            user: user
+        })
+        /*Fetch the info for the profile page of the requested user*/
+        var profileRef = fire.database().ref('/users/' + this.props.match.params.user)
+        profileRef.on('value', snapshot => {
             this.setState({
                 name: snapshot.val().name,
                 email: snapshot.val().email,
@@ -47,6 +55,20 @@ class Profile extends Component {
                 hideName: snapshot.val().hideName,
             });
         });
+        profileRef.child('fav_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function (childSnapshot) {
+                    var item = childSnapshot.val();
+                    returnArr.push(item);
+                });
+                this.setState({
+                    profileFavRecipes: returnArr,
+                })
+            }
+        });
+        /*Fetch the info of the current user    */
+        var userRef = fire.database().ref('/users/' + user.uid);
         userRef.child('fav_rec').on('value', snapshot => {
             if (snapshot.exists()) {
                 var returnArr = [];
@@ -55,27 +77,27 @@ class Profile extends Component {
                     returnArr.push(item);
                 });
                 this.setState({
-                    favRecipes: returnArr,
+                    userFavRecipes: returnArr,
                 })
             }
         });
         userRef.child('liked_rec').on('value', snapshot => {
             if (snapshot.exists()) {
                 var returnArr = [];
-                snapshot.forEach(function(childSnapshot) {
+                snapshot.forEach(function (childSnapshot) {
                     var item = childSnapshot.val();
                     returnArr.push(item);
                 });
                 this.setState({
-                    likedRecipes: returnArr,
+                    userLikedRecipes: returnArr,
                 })
             }
         });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.favRecipes !== this.state.favRecipes) {
-            let recipes = this.state.favRecipes.map((hit) => {
+        if (prevState.profileFavRecipes !== this.state.profileFavRecipes) {
+            let recipes = this.state.profileFavRecipes.map((hit) => {
                 return (
                     <div key={hit.title}>
                         <Recipe
@@ -83,8 +105,8 @@ class Profile extends Component {
                             uri={hit.uri}
                             img={hit.img}
                             url={hit.url}
-                            favRecipes={this.state.favRecipes}
-                            likedRecipes={this.state.likedRecipes}
+                            favRecipes={this.state.userFavRecipes}
+                            likedRecipes={this.state.userLikedRecipes}
                         />
                     </div>
                 )
@@ -189,7 +211,7 @@ class Profile extends Component {
                     <hr />
                     <div className="flex">
                         <div className="profile-label">Verified: </div>
-                        <div className="profile-content">{user.emailVerified}</div>
+                        <div className="profile-content">{this.state.user.emailVerified}</div>
 
                     </div>
                     <div>
@@ -198,7 +220,7 @@ class Profile extends Component {
                     <hr />
                     <div>
 
-                    <button class ="btn btn-danger"id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
+                        <button class="btn btn-danger" id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
 
                     </div>
                 </div>
@@ -272,6 +294,8 @@ class Profile extends Component {
     }
 }
 export default Profile;
+
+const ProfileWithRouter = withRouter(Profile);
 
 // const condition = user => !!user;
 
