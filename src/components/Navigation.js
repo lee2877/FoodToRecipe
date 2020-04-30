@@ -8,9 +8,20 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+
+    this.state = {
+      uid: ''
+    }
   }
   logout() {
     fire.auth().signOut();
+  }
+
+  componentDidMount() {
+    var uid = fire.auth().currentUser.uid;
+    this.setState({
+      uid: uid,
+    })
   }
 
   render() {
@@ -18,12 +29,12 @@ class Navigation extends Component {
       <div>
         <Navbar>
           <Link to="/">
-            <img src={Title} alt="Food2Recipe" className="title"/>
+            <img src={Title} alt="Food2Recipe" className="title" />
           </Link>
-          <Link to="/profile">
+          <Link to={"/profile/" + this.state.uid}>
             <button className="btn-profile">Profile</button>
           </Link>
-          <Link to ="/Ranking">
+          <Link to="/Ranking">
             <button className="btn-profile">Ranking</button>
           </Link>
           <div className="logout">
