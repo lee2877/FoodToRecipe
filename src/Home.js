@@ -48,12 +48,9 @@ class Home extends Component {
 
     handleVegetarian(vegetarianChecked) {
         this.setState({ vegetarianChecked });
+        this.getRecipes();
     }
-    changeIngredients(vegetarianChecked) {
-        if(vegetarianChecked){
-            ingred = "vegetarian";
-        }
-    }
+    
 
 
     handleChange = selected => {
@@ -70,6 +67,23 @@ class Home extends Component {
 
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
+        if(this.state.vegetarianChecked){
+            var array = this.state.foods;
+            if(array.includes('chicken')){
+                var index = array.indexOf('chicken');
+                console.log(index);
+                array.splice(index,1);
+                console.log(this.state.foods);
+            }
+            if(array.includes('beef')){
+                var index2 = array.indexOf('beef');
+                console.log(index2);
+                array.splice(index2, 1);
+                console.log(this.state.foods);
+            }
+            
+            
+        }
         let req = apiurl + "&q=" + this.state.foods.toString();
         console.log(req);
         setTimeout(() => {
@@ -92,8 +106,8 @@ class Home extends Component {
                             </div>
                         )
                     })
+                    
 
-                    console.log(recipes)
                     if(this.state.sortChecked){
                         var sortedMap = new Map([...recipes.entries()].sort(function (a, b) {
                             if (a[1].key.toLowerCase() < b[1].key.toLowerCase()) { return -1; }
@@ -199,7 +213,7 @@ class Home extends Component {
                 </button>
                 <button class="Btn-css btn btn-success"
                     onClick={() => {
-                        this.setState({ sortChecked : true })
+                        this.setState({ sortChecked : true }),
                         this.getRecipes();
 
                     }}
@@ -207,10 +221,15 @@ class Home extends Component {
                     {"Sort by name"}
                 </button>
                 
-                <lable>
-                    <span>   Vegetarian    </span>
-                    <Switch onChange={this.handleVegetarian} vegetarianChecked={this.state.vegetarianChecked} />
-                </lable>
+                <button class="Btn-css btn btn-success"
+                    onClick={() => {
+                        this.setState({ vegetarianChecked: true }),
+                        this.getRecipes();
+
+                    }}
+                >
+                    {"Vegetarian"}
+                </button>
 
 
                 <div class ="selectText">
