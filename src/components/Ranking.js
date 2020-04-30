@@ -82,9 +82,10 @@ class Ranking extends Component{
             
             arr.push(snap.key.toString());
             // temparr.push(snap.key.toString());
-            //console.log(snap.key + ' Likes ' + snap.val().likes);
+            console.log(snap.key + ' Likes ' + snap.val().likes);
+            console.log("like is :" + snap.val().likes);
             likeCount.push(snap.val().likes);
-            uriArr.push(snap.val().uri);
+            //uriArr.push(snap.val().uri);
             //console.log("Snap URI: "+snap.key.uri);
         })
         
@@ -99,7 +100,7 @@ class Ranking extends Component{
         var step;
         var cStep =10;
         for( step =0; step<10;step++){
-            arr3.push(cStep+" : "+arr[step] +"- Likes " + likeCount[0]);
+            arr3.push(cStep+" : "+arr[step] +"- Likes " + likeCount[step]);
             cStep--;
         }
 
