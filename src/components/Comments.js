@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import fire from '../config/Fire';
+import { Link } from 'react-router-dom';
 
 class Comments extends Component {
   constructor(props) {
@@ -23,13 +24,15 @@ class Comments extends Component {
 
   render() {
     if (this.props.comments) {
-      const commentsList = this.props.comments.map((comment) => 
+      const commentsList = this.props.comments.map((comment) =>
         <div key={comment.user + comment.text} className="indv-comment">
-          <div style={{ fontWeight: 600 }}>{this.getUsername(comment.userId)}:</div>
+          <Link to={"/profile/" + comment.userId} style={{ textDecoration: "none", color: "black"}}>
+            <div style={{ fontWeight: 600 }}>{this.getUsername(comment.userId)}:</div>
+          </Link>
           <div style={{ textIndent: 8, textAlign: "left" }}>{comment.text}</div>
           <div>
             {(comment.userId === fire.auth().currentUser.uid)
-              ? 
+              ?
               <div>
                 <button>Edit</button>
                 <button className="delete-comment" onClick={() => this.deleteComment(comment.commentId)}>X</button>

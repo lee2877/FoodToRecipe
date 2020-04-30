@@ -15,6 +15,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        this.getProfileInfo = this.getProfileInfo.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -44,29 +45,9 @@ class Profile extends Component {
         this.setState({
             user: user
         })
-        /*Fetch the info for the profile page of the requested user*/
-        var profileRef = fire.database().ref('/users/' + this.props.match.params.user)
-        profileRef.on('value', snapshot => {
-            this.setState({
-                name: snapshot.val().name,
-                email: snapshot.val().email,
-                username: snapshot.val().username,
-                hideEmail: snapshot.val().hideEmail,
-                hideName: snapshot.val().hideName,
-            });
-        });
-        profileRef.child('fav_rec').on('value', snapshot => {
-            if (snapshot.exists()) {
-                var returnArr = [];
-                snapshot.forEach(function (childSnapshot) {
-                    var item = childSnapshot.val();
-                    returnArr.push(item);
-                });
-                this.setState({
-                    profileFavRecipes: returnArr,
-                })
-            }
-        });
+        /* Get info about the desired user */
+        this.getProfileInfo();
+        
         /*Fetch the info of the current user    */
         var userRef = fire.database().ref('/users/' + user.uid);
         userRef.child('fav_rec').on('value', snapshot => {
@@ -113,6 +94,35 @@ class Profile extends Component {
             })
             this.setState({ recipes: recipes });
         }
+        if (prevProps.match.params !== this.props.match.params) {
+            this.getProfileInfo();
+        }
+    }
+
+    getProfileInfo(){
+        /*Fetch the info for the profile page of the requested user*/
+        var profileRef = fire.database().ref('/users/' + this.props.match.params.user)
+        profileRef.on('value', snapshot => {
+            this.setState({
+                name: snapshot.val().name,
+                email: snapshot.val().email,
+                username: snapshot.val().username,
+                hideEmail: snapshot.val().hideEmail,
+                hideName: snapshot.val().hideName,
+            });
+        });
+        profileRef.child('fav_rec').on('value', snapshot => {
+            if (snapshot.exists()) {
+                var returnArr = [];
+                snapshot.forEach(function (childSnapshot) {
+                    var item = childSnapshot.val();
+                    returnArr.push(item);
+                });
+                this.setState({
+                    profileFavRecipes: returnArr,
+                })
+            }
+        });
     }
 
     setName(name) {
