@@ -128,13 +128,12 @@ class Profile extends Component {
 
     handleSubmit(event) {
         fire.database().ref('/users/' + this.props.user.uid)
-            .set({
+            .update({
                 username: this.state.username,
                 email: this.state.email,
                 name: this.state.name,
                 hideName: this.state.hideName,
                 hideEmail: this.state.hideEmail,
-                fav_food: this.state.fav_food,
             });
         this.handleClose();
 
