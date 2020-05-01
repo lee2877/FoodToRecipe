@@ -68,24 +68,31 @@ class Home extends Component {
     getRecipes() {
         const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
         if(this.state.vegetarianChecked){
-            var array = this.state.foods;
-            if(array.includes('chicken')){
-                var index = array.indexOf('chicken');
+            var array1 = [...this.state.foods];
+            if(array1.includes('chicken')){
+                var index = array1.indexOf('chicken');
                 console.log(index);
-                array.splice(index,1);
-                console.log(this.state.foods);
+                array1.splice(index,1);
+                
             }
-            if(array.includes('beefs')){
-                var index2 = array.indexOf('beefs');
+            if(array1.includes('beef')){
+                var index2 = array1.indexOf('beef');
                 console.log(index2);
-                array.splice(index2, 1);
-                console.log(this.state.foods);
+                array1.splice(index2, 1);
+                
             }
+            if (array1.includes('pork')) {
+                var index3 = array1.indexOf('pork');
+                console.log(index3);
+                array1.splice(index3, 1);
+                
+            }
+            this.state.foods = [].concat(array1);
+            
             
             
         }
-        console.log(this.state.foods);
-        console.log(this.state.foods.length);
+        
         let req = apiurl + "&q=" + this.state.foods.toString();
         console.log(req);
         setTimeout(() => {
@@ -95,13 +102,14 @@ class Home extends Component {
                 }).then((data) => {
                     let recipes = data.hits.map((hit) => {
                         return (
-                            <div key={hit.recipe.label} recipe={hit.recipe.label} weight={hit.recipe.totalWeight}>
+                            <div key={hit.recipe.label} >
                                 <Recipe
+                                    //recipe={hit.recipe.label} weight={hit.recipe.totalWeight}
                                     recipe={hit.recipe.label}
                                     uri={hit.recipe.uri}
                                     img={hit.recipe.image}
                                     url={hit.recipe.url}
-                                    totalWeight={hit.recipe.label.totalWeight}
+                                    //totalWeight={hit.recipe.label.totalWeight}
                                     favRecipes={this.state.favRecipes}
                                     likedRecipes={this.state.likedRecipes}
                                 />

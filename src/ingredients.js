@@ -2,6 +2,7 @@ export const ingredients = [
     { value: "egg", label: "egg"},
     { value: "chicken", label: "chicken"},
     { value: "milk", label: "milk"},
+    { value: "pork", label: "pork"},
     { value: "beefs", label: "beefs"},
     { value: "banana", label: "banana" },
     { value: "apple", label: "apple" },
@@ -14,5 +15,22 @@ export const ingredients = [
     { value: "spinach", label: "spinach" },
     { value: "tomato", label: "tomato" },
     { value: "yogurt", label: "yogurt" },
+    { value: "cream", label: "cream" },
+    { value: "ricotta", label: "ricotta" },
+    { value: "gouda", label: "gouda" },
+    { value: "corn", label: "corn" },
+    { value: "olive", label: "olive" },
+    { value: "radish", label: "radish" },
+    { value: "basil", label: "basil" },
+    { value: "carrot", label: "carrot" },
+    { value: "avocado", label: "avocado" },
+    { value: "onion", label: "onion" },
+    { value: "garlic", label: "garlic" },
+    { value: "rice", label: "rice" },
+    { value: "flour", label: "flour" },
+    { value: "pasta", label: "pasta" },
+    { value: "noodle", label: "noodle" },
+
+    
 
 ];
