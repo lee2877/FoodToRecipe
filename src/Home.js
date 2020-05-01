@@ -92,7 +92,14 @@ class Home extends Component {
             
             
         }
-        
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        if(this.state.foods.length >=4){
+            var array2 = [...this.state.foods];
+            array2.splice(getRandomInt(array2.length),1);
+            this.state.foods = [].concat(array2);
+        }
         let req = apiurl + "&q=" + this.state.foods.toString();
         console.log(req);
         setTimeout(() => {
