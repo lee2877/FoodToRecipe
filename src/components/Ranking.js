@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import './Ranking.css';
 import { render } from 'react-dom';
 import Recipe from './Recipe';
+import Navigation from './Navigation';
 class Ranking extends Component{
 
     constructor(props){
@@ -108,8 +109,8 @@ class Ranking extends Component{
     render(){
         return(
             <div>
-       
-                <button className="btn btn-info Btn" type="submit" onClick={this.handleGoBack} >Back</button>
+
+                <Navigation />
                 <button className="btn btn-info Btn" type="submit" onClick={this.getRank} >GetRank</button>
                 <p className='rank-title'>Top 10 Recipies</p>
 
