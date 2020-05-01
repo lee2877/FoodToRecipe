@@ -11,7 +11,7 @@ class Ranking extends Component{
         super(props);
         this.handleGoBack=this.handleGoBack.bind(this);
         this.getRank=this.getRank.bind(this);
-        this.getRecipes=this.getRecipes.bind(this);
+        
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -23,7 +23,6 @@ class Ranking extends Component{
             countLikes:[],
             uriCheck: []
         }
-
     }
 
     
