@@ -145,9 +145,9 @@ class Recipe extends Component {
             <FontAwesomeIcon icon={this.state.favorited ? SolidStar : OutlineStar} />
           </button>
         </div>
-        <div>
-          <Comments comments={this.state.comments} {...this.props}/>
-        </div>
+        {this.state.comments.map((comment) => 
+          <Comments comment={comment} key={comment.commentId} {...this.props} />
+        )}
         <InputComment {...this.props} />
       </div>
     )
