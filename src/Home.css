@@ -77,13 +77,20 @@
 .indv-comment {
   display: flex;
   flex-direction: row;
+  font-size: 13px;
+}
+
+.comment-edit {
+  position: relative;
+  left: 5px;
+  color: #A4DA28;  
+  background: none;
 }
 
 .delete-comment {
-  position: absolute;
-  right: 5px;
   background-color: #EBEBEB;
-  color: red;
+  font-weight: 700;
+  color: #C04646;
 }
 
 .comment-input {

@@ -99,7 +99,7 @@ class Profile extends Component {
         }
     }
 
-    getProfileInfo(){
+    getProfileInfo() {
         /*Fetch the info for the profile page of the requested user*/
         var profileRef = fire.database().ref('/users/' + this.props.match.params.user)
         profileRef.on('value', snapshot => {
@@ -198,12 +198,12 @@ class Profile extends Component {
 
                 <div className="profile">
                     {(this.props.match.params.user === user.uid)
-                    ?<div className="edit">
-                        <button className="btn-edit" onClick={this.handleShow}>
-                            <FontAwesomeIcon icon={faCog} />
-                        </button>
-                    </div>
-                    :<div/>}
+                        ? <div className="edit">
+                            <button className="btn-edit" onClick={this.handleShow}>
+                                <FontAwesomeIcon icon={faCog} />
+                            </button>
+                        </div>
+                        : <div />}
                     <div className="header-title">Profile Page</div>
                     <hr />
                     <div className="flex">
@@ -221,20 +221,25 @@ class Profile extends Component {
                         <div className="profile-content">{this.state.name}</div>
                     </div>
                     <hr />
-                    <div className="flex">
-                        <div className="profile-label">Verified: </div>
-                        <div className="profile-content">{this.state.user.emailVerified}</div>
+                    {(this.props.match.params.user === user.uid)
+                        ? <div>
+                            <div className="flex">
+                                <div className="profile-label">Verified: </div>
+                                <div className="profile-content">{this.state.user.emailVerified}</div>
 
-                    </div>
-                    <div>
-                        <button class="btn btn-success" id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
-                    </div>
-                    <hr />
-                    <div>
+                            </div>
+                            <div>
+                                <button class="btn btn-success" id="sendVerification" onClick={this.sendEmailVerify}>Send Verification</button>
+                            </div>
+                            <hr />
+                            <div>
 
-                        <button class="btn btn-danger" id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
+                                <button class="btn btn-danger" id="deleteAccount" onClick={this.deleteUserAccount}>Delete Account</button>
 
-                    </div>
+                            </div>
+                        </div>
+                        : <div />
+                    }
                 </div>
 
                 {/* Favorite Recipes        */}

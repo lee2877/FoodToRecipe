@@ -197,7 +197,24 @@ class Home extends Component {
                     {"Cook"}
                 </button>
 
+<<<<<<< HEAD
                 
+=======
+                <button class="Btn-css btn btn-success"
+                    onClick={() => {
+                        this.setState({
+                            fav_food: this.state.foods
+                        })
+                        fire.database().ref(`/users/${fire.auth().currentUser.uid}`)
+                        .update({
+                            fav_food: this.state.fav_food
+                        });
+
+                    }}
+                >
+                    {"Add favorite"}
+                </button>
+>>>>>>> 9697d2d5d83097d2303e51e1cad524c33eeaeef4
                 <button class="Btn-css btn btn-primary"
                     onClick={() => {
                         this.setState({ sortChecked : true }),

@@ -11,7 +11,7 @@ class Ranking extends Component{
         super(props);
         this.handleGoBack=this.handleGoBack.bind(this);
         this.getRank=this.getRank.bind(this);
-        this.getRecipes=this.getRecipes.bind(this);
+        
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -23,7 +23,6 @@ class Ranking extends Component{
             countLikes:[],
             uriCheck: []
         }
-
     }
 
     
@@ -40,34 +39,6 @@ class Ranking extends Component{
     
 
 
-    getRecipes() {
-        const apiurl = "https://api.edamam.com/search?app_id=00b4728c&app_key=ec8f1ca8da43b4304bbbe9e1052816e9"
-        let req = apiurl + "&q=" + this.state.foods.toString();
-        //console.log(req);
-        setTimeout(() => {
-            fetch(req)
-                .then(results => {
-                    return results.json();
-                }).then((data) => {
-                    let recipes = data.hits.map((hit) => {
-                        return (
-                            <div key={hit.recipe.label}>
-                                <Recipe
-                                    recipe={hit.recipe.label}
-                                    uri={hit.recipe.uri}
-                                    img={hit.recipe.image}
-                                    url={hit.recipe.url}
-                                    favRecipes={this.state.favRecipes}
-                                    likedRecipes={this.state.likedRecipes}
-                                />
-                            </div>
-                        )
-                    })
-                    //console.log(recipes);                    
-                    //this.setState({ recipes: recipes });
-                })
-        })
-    }
 
     getRank(){
         var arr = new Array();
@@ -142,8 +113,6 @@ class Ranking extends Component{
                 <button className="btn btn-info Btn" type="submit" onClick={this.getRank} >GetRank</button>
                 <p className='rank-title'>Top 10 Recipies</p>
 
-                
-
                 <p className='recipe-list-rank' >{this.state.recipes[9]}</p>                
                 <p className='recipe-list-rank'>{this.state.recipes[8]}</p>                
                 <p className='recipe-list-rank'>{this.state.recipes[7]}</p>                
@@ -154,13 +123,7 @@ class Ranking extends Component{
                 <p className='recipe-list-rank'>{this.state.recipes[2]}</p>                
                 <p className='recipe-list-rank'>{this.state.recipes[1]}</p>                
                 <p className='recipe-list-rank'>{this.state.recipes[0]}</p>
-                
-                
-                
-              
-
-
-
+               
                 <div className="BottomBar2">
                   Copyright by Haeun Lee, Brian Long, Taehoon Kim (2020)
                 </div>
