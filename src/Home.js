@@ -211,7 +211,7 @@ class Home extends Component {
                 >
                     {"Add favorite"}
                 </button>
-                <button class="Btn-css btn btn-success"
+                <button class="Btn-css btn btn-primary"
                     onClick={() => {
                         this.setState({ sortChecked : true }),
                         this.getRecipes();
@@ -221,7 +221,7 @@ class Home extends Component {
                     {"Sort by name"}
                 </button>
                 
-                <button class="Btn-css btn btn-success"
+                <button class="Btn-css btn btn-warning"
                     onClick={() => {
                         this.setState({ vegetarianChecked: true }),
                         this.getRecipes();
