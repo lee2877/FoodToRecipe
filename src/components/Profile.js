@@ -47,7 +47,7 @@ class Profile extends Component {
         })
         /* Get info about the desired user */
         this.getProfileInfo();
-        
+
         /*Fetch the info of the current user    */
         var userRef = fire.database().ref('/users/' + user.uid);
         userRef.child('fav_rec').on('value', snapshot => {
@@ -197,11 +197,13 @@ class Profile extends Component {
                 <Navigation />
 
                 <div className="profile">
-                    <div className="edit">
+                    {(this.props.match.params.user === user.uid)
+                    ?<div className="edit">
                         <button className="btn-edit" onClick={this.handleShow}>
                             <FontAwesomeIcon icon={faCog} />
                         </button>
                     </div>
+                    :<div/>}
                     <div className="header-title">Profile Page</div>
                     <hr />
                     <div className="flex">
