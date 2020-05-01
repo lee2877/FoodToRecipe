@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import fire from '../config/Fire'
 
 
@@ -57,7 +59,9 @@ class InputComment extends Component {
           placeholder="Add a comment.."
           className="comment-input"
         />
-        <button onClick={() => this.submitComment()} style={{ position: "absolute", right: "0px" }}>Submit</button>
+        <button onClick={() => this.submitComment()} style={{ position: "absolute", right: "0px", background: "none" }}>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </button>
       </div>
     )
   }

@@ -202,7 +202,7 @@ class Home extends Component {
                         this.setState({
                             fav_food: this.state.foods
                         })
-                        firebase.database().ref(`users/${firebase.auth().currentUser.uid}`)
+                        fire.database().ref(`/users/${fire.auth().currentUser.uid}`)
                         .update({
                             fav_food: this.state.fav_food
                         });

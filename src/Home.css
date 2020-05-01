@@ -83,7 +83,8 @@
 .comment-edit {
   position: relative;
   left: 5px;
-  color: #A4DA28
+  color: #A4DA28;  
+  background: none;
 }
 
 .delete-comment {
