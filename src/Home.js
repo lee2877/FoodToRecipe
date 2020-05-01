@@ -75,8 +75,8 @@ class Home extends Component {
                 array.splice(index,1);
                 console.log(this.state.foods);
             }
-            if(array.includes('beef')){
-                var index2 = array.indexOf('beef');
+            if(array.includes('beefs')){
+                var index2 = array.indexOf('beefs');
                 console.log(index2);
                 array.splice(index2, 1);
                 console.log(this.state.foods);
@@ -84,6 +84,8 @@ class Home extends Component {
             
             
         }
+        console.log(this.state.foods);
+        console.log(this.state.foods.length);
         let req = apiurl + "&q=" + this.state.foods.toString();
         console.log(req);
         setTimeout(() => {
@@ -210,10 +212,12 @@ class Home extends Component {
                 
                 <button class="Btn-css btn btn-warning"
                     onClick={() => {
-                        this.setState({ vegetarianChecked: true }),
-                        this.getRecipes();
+                        this.setState({ vegetarianChecked: true }, () => this.getRecipes());
+                        
+                        
 
-                    }}
+                    }
+                    }
                 >
                     {"Vegetarian"}
                 </button>

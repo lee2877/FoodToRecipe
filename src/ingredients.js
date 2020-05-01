@@ -2,7 +2,7 @@ export const ingredients = [
     { value: "egg", label: "egg"},
     { value: "chicken", label: "chicken"},
     { value: "milk", label: "milk"},
-    { value: "beef", label: "beef"},
+    { value: "beefs", label: "beefs"},
     { value: "banana", label: "banana" },
     { value: "apple", label: "apple" },
     { value: "bean", label: "bean" },
