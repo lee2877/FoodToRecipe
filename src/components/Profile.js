@@ -137,7 +137,7 @@ class Profile extends Component {
     }
 
     handleSubmit(event) {
-        fire.database().ref('/users/' + this.props.user.uid)
+        fire.database().ref('/users/' + this.state.user.uid)
             .update({
                 username: this.state.username,
                 email: this.state.email,
